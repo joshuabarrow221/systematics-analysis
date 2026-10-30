@@ -1,7 +1,7 @@
 # Atmospheric cross-section response explorer
 
 This package compares every **stored** dial point in the October 2026 atmospheric
-flat-CAF production. It builds two simultaneous canvases with 13 observables,
+flat-CAF production. It builds two selectable canvases with 13 observables,
 five truth-channel selections, FC/PC containment and configurable physical bins.
 The HTML works offline. It reads aggregated results, never the ROOT files.
 
