@@ -30,6 +30,7 @@ atmo-aggregate = "atmospheric_response.v2_aggregate:main"
 atmo-viewer = "atmospheric_response.build_interactive_v2:main"
 atmo-render = "atmospheric_response.render_canvases_v2:main"
 atmo-bins = "atmospheric_response.print_binning:main"
+atmo-compare-directions = "atmospheric_response.compare_nominal_directions:main"
 
 [build-system]
 requires = ["hatchling"]

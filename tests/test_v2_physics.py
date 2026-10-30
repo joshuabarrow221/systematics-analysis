@@ -53,6 +53,24 @@ class PhysicsTests(unittest.TestCase):
         self.assertTrue(proxy["masks"]["true_l_over_e"].all())
         np.testing.assert_allclose(proxy["true_baseline_geometric_km"], [15., 15., 15.])
 
+    def test_previous_method_has_no_switch_and_preserves_old_validity(self):
+        # Both charge signs; NC uses heshw even above the hybrid switch.
+        category = np.array([0, 1, 2, 3, 4, 0, 0])
+        heshw = np.tile([0., -1., 0.], (7, 1))
+        lngtrk = np.tile([0., 0., 1.], (7, 1))
+        calo = np.tile([1., 0., 0.], (7, 1))
+        heshw[5] = [0., -2., 0.]  # normalized by hybrid, invalid historically
+        heshw[6] = [0., 0., 0.]
+        unit, valid, method = choose_direction(category, np.ones(7),
+            np.array([.1, 1.3, 3., np.nan, 100., .2, .2]),
+            heshw, lngtrk, calo, "all_particles")
+        np.testing.assert_array_equal(method, [0, 1, 0, 0, 1, 0, 0])
+        np.testing.assert_array_equal(valid, [True]*5+[False, False])
+        np.testing.assert_allclose(-unit[:5, 1], [1., 0., 1., 1., 0.])
+        _, hybrid_valid, _ = choose_direction(category, np.full(7, 2),
+            np.full(7, .2), heshw, lngtrk, calo, "hybrid")
+        self.assertTrue(hybrid_valid[5])
+
     @staticmethod
     def raw():
         return {

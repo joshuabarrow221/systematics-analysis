@@ -28,7 +28,9 @@ def check(viewer: Path, collection: Path, output: Path, dial_ids: list[str]) -> 
             path = collection.parent / path
         doc = json.loads(path.read_text())
         if doc['dimensions']['binning'] == 'fine' and doc['dimensions']['containment'] == 'all':
-            variants[doc['dimensions']['policy']] = (path, doc)
+            key = (doc['dimensions']['direction'], doc['dimensions']['policy'])
+            assert key not in variants, f'Duplicate fine/all direction-policy combination: {key}'
+            variants[key] = (path, doc)
     reports, errors, requests = [], [], []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True,
@@ -45,10 +47,10 @@ def check(viewer: Path, collection: Path, output: Path, dial_ids: list[str]) -> 
                 page.select_option('#' + key, value)
                 page.wait_for_function('window.__viewerReady===true')
 
-        for policy in ('fitter_policy', 'raw'):
-            path, doc = variants[policy]
+        for (direction, policy), (path, doc) in sorted(variants.items()):
             change('binning', 'fine')
             change('containment', 'all')
+            change('direction', direction)
             change('policy', policy)
             change('selection', 'nue_cc')
             change('canvas', 'original')
@@ -89,15 +91,15 @@ def check(viewer: Path, collection: Path, output: Path, dial_ids: list[str]) -> 
                         assert 'max per stored point' in page.locator('#notes').inner_text()
                         assert ('not physical insensitivity' if policy == 'fitter_policy'
                                 else 'probability quantiles undefined') in page.locator('#notes').inner_text()
-                    reports.append(dict(policy=policy, dial=did, reference_value=reference_value,
+                    reports.append(dict(direction=direction, policy=policy, dial=did, reference_value=reference_value,
                                         stored_points=state['stored_points'], shape_test_statuses=statuses,
                                         raw_pair_flags=flags))
                     if did in ('d062', 'd091'):
-                        page.screenshot(path=str(output / f'{policy}_{did}.png'), full_page=True)
+                        page.screenshot(path=str(output / f'{direction}_{policy}_{did}.png'), full_page=True)
                     warnings = page.evaluate("Array.from(document.querySelectorAll('.chart')).flatMap(p=>"
                                              "p.data?(Plotly.validate(p.data,p.layout)||[]):[])")
                     assert not warnings, warnings
-                    print(f'Checked {policy} / {did}: actual CV {reference_value}', flush=True)
+                    print(f'Checked {direction} / {policy} / {did}: actual CV {reference_value}', flush=True)
         # Search must retain the full parameter inventory when cleared.
         page.fill('#search', 'WSReweight')
         page.wait_for_function("document.querySelector('#dial').options.length===2")

@@ -126,7 +126,9 @@ def choose_direction(category, n_particles, enu_calo, reco_heshw, reco_lngtrk,
     Hybrid uses hits for NC, fewer than two non-hit particles, or !(Ecalo<1.3).
     Thus NaN energy and equality at 1.3 both use hits.  Otherwise truth e-like
     channels use heshw and truth mu-like channels lngtrk.  The all_particles
-    comparison deliberately keeps the previous heshw convention for NC.
+    comparison deliberately keeps the previous heshw convention for NC and
+    the historical |norm-1| <= 1e-4 direction-validity requirement. There is
+    no particle-count or energy switch in that previous method.
     """
     category = np.asarray(category)
     mu = np.isin(category, [1, 4])
@@ -142,6 +144,12 @@ def choose_direction(category, n_particles, enu_calo, reco_heshw, reco_lngtrk,
     vectors = np.stack([reco_heshw, reco_lngtrk, reco_calo], axis=1)
     chosen = vectors[np.arange(category.size), selected]
     unit, valid = unit_direction(chosen)
+    if method == "all_particles":
+        # Reproduce the validity check in the original flat-CAF study as well
+        # as its direction assignment. Hybrid follows Pierre's normalization
+        # rule and intentionally accepts any finite nonzero vector instead.
+        valid &= np.isclose(np.linalg.norm(chosen, axis=1), 1.0,
+                            rtol=0.0, atol=1e-4)
     valid &= category >= 0
     selected[category < 0] = -1
     return unit, valid, selected

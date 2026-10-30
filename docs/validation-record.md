@@ -1,7 +1,10 @@
 # Validation record — 30 October 2026
 
-The full 15 km production-height aggregation, its saved-output audit and the
-delivered app's automated browser checks passed. Browser checks establish
+The full 15 km production-height aggregations for both reconstruction methods,
+their saved-output audits and the combined app's automated browser checks passed.
+The original hybrid record is below; the reconstruction-toggle follow-up at the
+end records the added previous-method run and the final 20-dataset app.
+Browser checks establish
 presentation/export behavior within their tested cases, not upstream physics.
 
 The reviewed run contains **145 files, 9,743,963 selected events, 101 response
@@ -14,11 +17,11 @@ raw cache without rereading ROOT. FC/PC totals are 7,512,063 and 2,231,900.
 
 | Check | Result | Scope and evidence |
 |---|---|---|
-| Unit suite | 45 tests and 86 subtests passed | Main run's console result: `45 passed, 86 subtests passed in 3.27s`. No separate pytest log was saved. Subsequent changes were documentation/configuration notes. Reproduce with `python -m pytest`. |
+| Original unit suite | 45 tests and 86 subtests passed | Main hybrid run's console result: `45 passed, 86 subtests passed in 3.27s`. No separate pytest log was saved. The later toggle suite is recorded below. Reproduce with `python -m pytest`. |
 | Independent dense 15 km pilot | Passed | One local source cache, 67,633 selected events and slots 0, 1, 2. The installed-package pilot matched direct event calculations across all 10 datasets and 13 observables. Report: `pilot_dense_validation_h15.json`. |
 | Targeted reference/response pilot | Passed | Eight slots from the 101-slot pilot: 0, 15, 60, 61, 62, 78, 91, 92. Covers absent/nonzero CVs, coupled scenarios and malformed responses. Report: `pilot_dense_validation_all101_targets.json`. This is eight independently checked targets, not 101 dense dial checks; its report does not record geometry. The separate 15 km pilot validates the final geometry. |
 | Full saved aggregates | Passed | All 101 slots and all 623 points in the full run. Report: `saved_full_aggregate_validation.json`; it records complete production and the configuration/geometry above. |
-| Full-app browser QA | Passed | The actual delivered app recorded 52 browser states across 10 datasets/five truth channels and both canvases, plus 10 special-dial/policy cases. No browser errors or external requests; exported ratios match saved arrays and geometry is 15 km. Reports: `validation/browser/validation.json` and `validation/special_dials/special_dials_validation.json`. |
+| Original hybrid-app browser QA | Passed | The original app recorded 52 browser states across 10 datasets/five truth channels and both canvases, plus 10 special-dial/policy cases. No browser errors or external requests; exported ratios match saved arrays and geometry is 15 km. Reports: `validation/browser/validation.json` and `validation/special_dials/special_dials_validation.json`. |
 
 The 15 km dense pilot checked 9,612 histogram vectors, 828 profile vectors,
 828 flatness comparisons, 1,740 baseline vectors and 2,052 FC+PC closure vectors.
@@ -70,3 +73,45 @@ normalization, absolute exposure, exact production build and the final paper
 figure generator remain unverified. L/E is a declared geometric proxy. See the
 [analysis guide](atmospheric-response.md) for selections, estimators and statistical
 limitations. Numerical agreement alone does not remove those limitations.
+
+## Reconstruction-toggle follow-up
+
+The previous-method full run contains **145 files, 9,587,246 selected events,
+101 dials, 623 points, 13 observables and 10 datasets**. FC/PC counts are
+7,363,251 and 2,223,995, with no unknown-containment events in the selected
+sample. Its configuration SHA256 is
+`a975157a7529520c1bc52c9495b9ede96147d686d31490fa69db64a1e3ab14ea`.
+The saved configurations differ only in `physics.direction_method`; all other
+cuts, energy estimators, weights, bins and R=6371 km / h=15 km / depth=0 geometry
+are identical. All seven recorded calculation-module hashes match the checkout.
+
+| Check | Result and evidence |
+|---|---|
+| Updated unit suite | `54 passed, 86 subtests passed in 3.50s`. New coverage includes the historical direction validity, collection collisions, independent profile/count closure, integer-overflow protection and an empty comparison cohort. |
+| Package | `python -m build --no-isolation` passed. The wheel contains both YAMLs, the comparison module and its CLI entry point. Installed CLI help passed from an isolated target outside the checkout. |
+| Previous-method dense pilot | 66,565 events, 9,612 histogram vectors, 828 angular-width vectors, 828 flatness comparisons, 1,740 references and 2,052 FC+PC closures. Maximum histogram difference `5.26e-13`; profile widths agree exactly. Report: `legacy_pilot/dense_validation_checkout.json`. |
+| Previous-method full saved audit | Passed all ten datasets: 332,682 histogram vectors, 28,658 angular-width vectors, 71,022 FC+PC closures, 58,580 exact-edge checks and 1,010 actual-CV metadata checks. Report: `full_scan_v2_legacy/saved_aggregate_validation.json`. |
+| Combined viewer | Passed **105 browser states**: 100 dataset/selection states plus default, kinematics and method-state checks. Exact angular arrays, CSV ratios, saved state, acceptance warnings and method-specific counts were checked. Twenty special-dial cases cover both methods and both numerical policies. No browser errors or external requests. |
+
+The final viewer contains **20 datasets**, preserving the hybrid as default.
+Reports are in `full_scan_v2/validation/direction_toggle/`: `software_checks.json`,
+`browser/validation.json`, `special_dials/special_dials_validation.json` and
+`run_status.json`. Browser checks used a staged app. Its HTML SHA256
+`bfec33e6a782c1e34b6d97d3073b589a711bc732bcfd0c5bc7e4d6fef3bef12e`
+matches the delivered app; all twenty sidecars were verified, followed by a
+successful final-path smoke check. Ten obsolete sidecars were retired only
+after promotion. Screenshots of both methods were visually checked.
+
+Synthetic and real pilot checks additionally cover rapid toggling, URL reload,
+CSV direction fields and one-page A3 printing. The full-app saved-array audit
+covers every curve; browser clicks sample presentation states and special dials.
+
+The separate nominal audit uses **9,587,231 common-valid events**. Both methods
+receive exactly the same events and nominal weights, without any response array.
+Count and weighted-yield closures pass; per-channel profile counts and quantiles
+have independent regression coverage. Full JSON/NPZ, the two-page PDF and source
+provenance are in `direction_comparison/full/`. The peaks near cosZ=±0.815
+remain in the hit contribution on this common cohort. Their upstream mechanism
+is unconfirmed; the source audit distinguishes that fact from the verified
+direction assignments. Neither this comparison nor the browser checks prove
+physical correctness of a reconstruction method.

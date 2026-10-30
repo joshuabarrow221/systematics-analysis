@@ -18,6 +18,7 @@ import argparse
 import csv
 import json
 from pathlib import Path
+from urllib.parse import parse_qs, urlsplit
 
 import numpy as np
 from matplotlib.scale import SymmetricalLogTransform
@@ -51,6 +52,11 @@ def check_viewer(root: Path) -> None:
 
         assert snapshot('default')['dimensions'] == dict(
             policy='fitter_policy', binning='fine', containment='all', direction='hybrid')
+        assert not page.locator('#direction').is_disabled()
+        assert page.locator('#direction option').all_text_contents() == [
+            'Pierre hybrid; NC hits only', 'Previous all-particle method (NC heshw)']
+        assert page.locator('#direction-acceptance').is_visible()
+        assert 'event counts and truth spectra can therefore differ' in page.locator('#direction-acceptance').inner_text()
         assert page.locator('#plot-4').evaluate(
             "p=>Object.keys(p.layout).filter(x=>x.startsWith('yaxis'))"
         ) == ['yaxis', 'yaxis2', 'yaxis3']
@@ -113,6 +119,59 @@ def check_viewer(root: Path) -> None:
         change('selection', 'numu_cc')
         assert page.evaluate('state.page.reco_neutrino_energy.edges') == [0, .4, .6, 1, 100]
         page.screenshot(path=str(root / 'miles_kinematics.png'), full_page=True)
+        # Change the method from a deliberately nondefault state. Other
+        # controls, the physical bin edges and the selected dial must survive.
+        for key, value in [('containment', 'pc'), ('policy', 'raw'), ('mode', 'shape'),
+                           ('dial', 'test_second')]:
+            change(key, value)
+        before = snapshot('before_method_toggle')
+        previous_hybrid = page.evaluate('state.page.reco_l_over_e.values')
+        change('direction', 'all_particles')
+        legacy = snapshot('previous_method')
+        assert legacy['dimensions'] == dict(
+            policy='raw', binning='miles', containment='pc', direction='all_particles')
+        for key in ('selection', 'dial', 'mode', 'canvas', 'stored_points'):
+            assert legacy[key] == before[key], key
+        assert legacy['policy'] == 'all_particles_miles_pc_raw'
+        assert page.locator('#direction-acceptance').inner_text().startswith('SYNTHETIC provenance acceptance note:')
+        with np.load(root / 'all_particles_miles_pc_raw/curves.npz') as arrays:
+            expected_legacy = arrays['numu_cc_reco_l_over_e']
+            expected_edges = arrays['reco_l_over_e_edges']
+        np.testing.assert_array_equal(page.evaluate('state.page.reco_l_over_e.values'), expected_legacy)
+        assert not np.array_equal(previous_hybrid, expected_legacy)
+        assert page.evaluate('state.page.reco_neutrino_energy.edges') == [0, .4, .6, 1, 100]
+        with page.expect_download() as download:
+            page.click('#download')
+        download.value.save_as(root / 'previous_method.csv')
+        for row in csv.DictReader((root / 'previous_method.csv').open()):
+            assert row['direction'] == 'all_particles'
+            assert row['dial'] == 'test_second' and row['canvas'] == 'kinematics'
+            if row['observable'] == 'reco_l_over_e':
+                point = {'-1': 0, 'Test reference (0)': 1, '+1': 2}[row['point_label']]
+                index = int(np.argmin(abs(expected_edges[:-1] - float(row['bin_low']))))
+                raw = expected_legacy[point]
+                density = raw / raw.sum() / np.diff(expected_edges)
+                np.testing.assert_allclose(float(row['value']), density[index], rtol=1e-14)
+        address = parse_qs(urlsplit(page.url).fragment)
+        assert address['direction'] == ['all_particles']
+        assert address['dial'] == ['test_second'] and address['mode'] == ['shape']
+        page.reload()
+        page.wait_for_function('window.__viewerReady===true')
+        assert snapshot('method_hash_reload') == legacy
+        np.testing.assert_array_equal(page.evaluate('state.page.reco_l_over_e.values'), expected_legacy)
+        change('direction', 'hybrid')
+        restored = snapshot('method_round_trip')
+        assert restored == before
+        assert 'event counts and truth spectra can therefore differ' in page.locator('#direction-acceptance').inner_text()
+        np.testing.assert_array_equal(page.evaluate('state.page.reco_l_over_e.values'), previous_hybrid)
+        # A quick second switch must finish on the final chosen method, not a
+        # late asynchronous decode of the previous dataset.
+        page.select_option('#direction', 'all_particles')
+        page.select_option('#direction', 'hybrid')
+        page.wait_for_function('window.__viewerReady===true && window.__viewerState.dimensions.direction==="hybrid"')
+        assert snapshot('rapid_method_round_trip') == before
+        for key, value in [('dial', 'test'), ('mode', 'rate')]:
+            change(key, value)
         change('selection', 'nc')
         snapshot('unsupported_nc')
         assert 'Explicitly unsupported' in page.locator('#grid').inner_text()
@@ -141,7 +200,9 @@ def check_viewer(root: Path) -> None:
         report = dict(synthetic_fixture_only=True, checks=checks, errors=errors,
                       external_requests=external, plotly_warnings=warnings, cache=cache,
                       csv_shape_and_rate_ratios_match_numpy=True,
-                      physical_symlog_matches_matplotlib=True)
+                      physical_symlog_matches_matplotlib=True,
+                      method_toggle_preserves_controls_and_physical_bins=True,
+                      method_csv_and_hash_reload_match_selected_dataset=True)
         (root / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')
         browser.close()
     print('PASS: synthetic offline browser fixture, CSV ratios, axes, dimensions and caches')

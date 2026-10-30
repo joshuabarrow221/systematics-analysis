@@ -18,6 +18,7 @@ import argparse
 import csv
 import json
 from pathlib import Path
+from urllib.parse import parse_qs, urlsplit
 
 import numpy as np
 from playwright.sync_api import sync_playwright
@@ -142,6 +143,66 @@ def check(viewer: Path, collection: Path, output: Path) -> None:
         change('policy', 'fitter_policy')
         change('selection', 'numu_cc')
         page.screenshot(path=str(output / 'real_miles_pc_muon.png'), full_page=True)
+        # A multi-method collection must retain its other controls while the
+        # angular datasets change. Compare actual angular arrays, not just the
+        # selector label, to catch a stale decoded page after asynchronous loads.
+        method_checks = []
+        methods = page.locator('#direction').evaluate('s=>Array.from(s.options).map(o=>o.value)')
+        if len(methods) > 1:
+            change('canvas', 'original')
+            available_dials = page.locator('#dial').evaluate('s=>Array.from(s.options).map(o=>o.value)')
+            selected_dial = 'd031' if 'd031' in available_dials else available_dials[-1]
+            change('dial', selected_dial)
+            change('mode', 'shape')
+            before = page.evaluate('window.__viewerState')
+            for method in methods + [before['dimensions']['direction']]:
+                change('direction', method)
+                current = inspect('direction_toggle/' + method)
+                assert current['dimensions']['direction'] == method
+                for key in ('binning', 'containment', 'policy'):
+                    assert current['dimensions'][key] == before['dimensions'][key], key
+                for key in ('selection', 'dial', 'mode', 'canvas'):
+                    assert current[key] == before[key], key
+                source, method_doc = manifests[current['policy']]
+                assert page.locator('#direction-acceptance').is_visible()
+                supplied_note = method_doc.get('provenance', {}).get('direction_acceptance')
+                shown_note = page.locator('#direction-acceptance').inner_text()
+                if supplied_note:
+                    assert shown_note == supplied_note
+                else:
+                    assert 'event counts and truth spectra can therefore differ' in shown_note
+                selection_description = next(s['description'] for s in method_doc['selections']
+                    if s['id'] == current['selection'])
+                assert selection_description in page.locator('#notes').inner_text()
+                with np.load(source.parent / method_doc['data_file']) as arrays:
+                    for oid in ('reco_coszenith', 'angular_resolution', 'reco_l_over_e'):
+                        curve = next(c for c in method_doc['curves'] if
+                            (c['selection_id'], c['dial_id'], c['observable_id']) ==
+                            (current['selection'], current['dial'], oid))
+                        if not curve.get('available', True):
+                            assert not page.evaluate('(oid)=>state.page[oid].available', oid)
+                            continue
+                        expected = arrays[curve['values_key']]
+                        actual = page.evaluate('(oid)=>state.page[oid].values', oid)
+                        np.testing.assert_allclose(np.asarray(actual, dtype=float), expected,
+                                                   rtol=0, atol=0, equal_nan=True)
+                method_checks.append(dict(dataset=current['policy'], direction=method,
+                                          angular_arrays_match_npz=True,
+                                          acceptance_note=shown_note,
+                                          selection_description=selection_description))
+            last_state = page.evaluate('window.__viewerState')
+            address = parse_qs(urlsplit(page.url).fragment)
+            assert address['direction'] == [last_state['dimensions']['direction']]
+            page.reload()
+            page.wait_for_function('window.__viewerReady===true')
+            assert page.evaluate('window.__viewerState') == last_state
+            with page.expect_download() as download:
+                page.click('#download')
+            download.value.save_as(output / 'direction_toggle.csv')
+            method_rows = list(csv.DictReader((output / 'direction_toggle.csv').open()))
+            assert method_rows and all(row['direction'] == last_state['dimensions']['direction']
+                                       and row['dial'] == selected_dial for row in method_rows)
+            page.screenshot(path=str(output / 'real_direction_toggle.png'), full_page=True)
         cache = page.evaluate('({compressed:loadedPayloads.size,decoded:decoded.size})')
         assert cache['compressed'] <= 1 and cache['decoded'] <= 3
         external = [url for url in requests if url.startswith(('http:', 'https:'))]
@@ -151,6 +212,7 @@ def check(viewer: Path, collection: Path, output: Path) -> None:
                       external_requests=external, cache=cache, states=states,
                       dataset_count=len(manifests), observable_count=len(doc['observables']),
                       dials_per_dataset=len(doc['dials']), csv_ratios_match_npz=True,
+                      direction_toggle_checks=method_checks,
                       geometry=geometry,
                       limitation='Verifies aggregate presentation, not upstream physics or full-sample completeness')
         (output / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')

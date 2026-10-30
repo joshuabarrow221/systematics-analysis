@@ -5,6 +5,16 @@ Example:
   python -m atmospheric_response.build_interactive_v2 \
     --manifest-list outputs/collection.json --output outputs/explorer.html
 
+Combine separately aggregated methods without manually merging their lists:
+  python -m atmospheric_response.build_interactive_v2 \
+    --manifest-list outputs/hybrid/manifest_list.json \
+    --manifest-list outputs/previous/manifest_list.json \
+    --output outputs/explorer.html
+
+Repeated list inputs namespace colliding dataset IDs as collection1__ID,
+collection2__ID, and so on. One-list IDs remain unchanged. Each manifest path
+is resolved beside its own list, not beside the output HTML.
+
 Only aggregate files are read. Each selection/dial canvas is compressed and
 decoded on demand. By default, data live in local JavaScript sidecars so the
 HTML remains small and works with file:// without a local web server. Keep the
@@ -45,6 +55,51 @@ def plain(text):
     for before, after in replacements:
         text = text.replace(before, after)
     return text
+
+
+def collection_specs(paths):
+    """Resolve independent manifest lists while preserving source-local paths.
+
+    Dataset IDs name browser caches and sidecars. Two method runs normally use
+    the same binning/policy IDs, so only those colliding names receive a stable
+    collection-number prefix. The manifest's physical dimensions are unchanged;
+    duplicate actual dimension combinations are still rejected by ``main``.
+    """
+    from collections import Counter
+    records = []
+    for number, source in enumerate(paths, start=1):
+        source = Path(source)
+        collection = json.loads(source.read_text())
+        if isinstance(collection, dict):
+            collection = collection['datasets']
+        require(isinstance(collection, list), f'{source}: expected a dataset list')
+        seen = set()
+        for item in collection:
+            identifier = item['id']
+            require(isinstance(identifier, str) and identifier and '=' not in identifier,
+                    f'{source}: dataset IDs must be nonempty strings without =')
+            require(identifier not in seen, f'{source}: duplicate dataset ID {identifier}')
+            seen.add(identifier)
+            path = Path(item['manifest'])
+            if not path.is_absolute():
+                path = source.parent / path
+            records.append((number, identifier, path.resolve()))
+    counts = Counter(identifier for _, identifier, _ in records)
+    # Reserve unchanged IDs first so an automatically generated prefix cannot
+    # accidentally take a unique user-supplied ID from another input list.
+    assigned = {identifier for _, identifier, _ in records if counts[identifier] == 1}
+    specs = []
+    for number, identifier, path in records:
+        name = identifier
+        if counts[identifier] > 1:
+            stem = f'collection{number}__{identifier}'
+            name, suffix = stem, 2
+            while name in assigned:
+                name = f'{stem}__{suffix}'
+                suffix += 1
+            assigned.add(name)
+        specs.append(name + '=' + str(path))
+    return specs
 
 
 def pack_dataset(name, manifest):
@@ -137,6 +192,7 @@ button:hover{background:#edf3f8}button:disabled{opacity:.45;cursor:default}.stat
 .legend-item{display:flex;align-items:center;gap:5px;font-size:11px;min-width:0;overflow-wrap:anywhere}.swatch{width:28px;min-width:28px;border-top:2px solid}.legend-item input{padding:0;margin:0}
 .warning{color:#93450f!important}.small{font-size:10px!important;color:#657388!important}details{font-size:11px;margin:8px 0}details div{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:7px}summary{cursor:pointer}
 footer{font-size:11px;color:#5c6b7b;padding:4px 24px 16px}.loading{opacity:.5;pointer-events:none}.fatal{margin:24px;padding:16px;background:#fff4ec;border:1px solid #c67035;color:#7f3110}
+.acceptance-note{font-size:12px;line-height:1.4;color:#795318;margin:7px 0 0;max-width:1250px}
 @media(max-width:800px){#grid{grid-template-columns:1fr}.panel{height:370px}#dial{width:90vw}.legend{grid-template-columns:repeat(2,minmax(0,1fr))}header{padding:14px}}
 @media print{@page{size:A3 portrait;margin:8mm}body{background:#fff}header{padding:0 4px 5px}h1{font-size:16px}.intro,.controls,.status,footer{display:none}#grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0}.panel{height:350px;border-radius:0;break-inside:avoid}.chart{height:290px}.notes-panel{overflow:visible}.notes-panel p{font-size:8px;line-height:1.2;margin:3px 0}.notes-panel .legend{gap:2px 8px;margin:5px 0}.notes-panel .legend-item{font-size:8px;line-height:1.1}.notes-panel .legend-item input{width:10px;height:10px}.notes-panel details{display:none}.modebar{display:none!important}}
 </style></head><body>
@@ -145,7 +201,7 @@ footer{font-size:11px;color:#5c6b7b;padding:4px 24px 16px}.loading{opacity:.5;po
 <div class="controls">
 <label class="control">Binning<select id="binning"></select></label>
 <label class="control">Containment<select id="containment"></select></label>
-<label class="control">Direction<select id="direction"></select></label>
+<label class="control">Angle reconstruction<select id="direction"></select></label>
 <label class="control">Weight policy<select id="policy"></select></label>
 <label class="control">Canvas<select id="canvas"></select></label>
 <label class="control">Selection<select id="selection"></select></label>
@@ -153,7 +209,7 @@ footer{font-size:11px;color:#5c6b7b;padding:4px 24px 16px}.loading{opacity:.5;po
 <label class="control">Find parameter<input id="search" type="search" placeholder="Type part of a dial name"></label>
 <label class="control">Parameter<select id="dial"></select></label>
 <div class="buttons"><button id="previous" title="Previous parameter">←</button><button id="next" title="Next parameter">→</button><button id="reset">Reset zoom</button><button id="download">Download canvas CSV</button><button id="print">Print canvas (A3)</button></div>
-</div><div id="status" class="status" role="status">Loading embedded data…</div></header>
+</div><p id="direction-acceptance" class="acceptance-note" role="note" hidden></p><div id="status" class="status" role="status">Loading embedded data…</div></header>
 <main id="grid"></main><footer>Each histogram’s shape is normalized over its displayed range. Energy underflow/overflow and sample exclusions remain in the accompanying analysis audit. Ratios mask zero or undefined reference bins. Resolution profiles are never area-normalized.</footer>
 <script id="embedded-data" type="application/json">__DATA__</script>
 <script>__PLOTLY__</script>
@@ -352,7 +408,14 @@ async function renderCharts(){
 }
 const dimensionKeys=['binning','containment','direction','policy'];
 function selectedDataset(){return DATA.datasets.find(d=>dimensionKeys.every(k=>String(d.dimensions[k])===el(k).value));}
-function dimensionLabel(dataset,key,value){const labels=dataset.dimension_labels?.[key];return typeof labels==='string'?labels:labels?.[value]||({all:'All containment',fc:'Fully contained',pc:'Partially contained',FC:'Fully contained',PC:'Partially contained',fine:'Fine',miles:'Miles',hybrid:'Hybrid',all_particle:'All particles',hits:'Hits only',raw:'Raw responses (diagnostic)',fitter_policy:'MaCh3 numerical policy'}[value]||value);}
+function directionAcceptanceNote(dataset){
+ if(new Set(DATA.datasets.map(d=>d.dimensions.direction)).size<2)return '';
+ const supplied=dataset.provenance?.direction_acceptance;
+ if(typeof supplied==='string'&&supplied.trim())return supplied;
+ return dataset.provenance?.selection?.require_valid_direction===true?
+  'Each method requires a valid reconstructed direction; event counts and truth spectra can therefore differ. Use the common-valid comparison to isolate changes of reconstructed values.':'';
+}
+function dimensionLabel(dataset,key,value){const labels=dataset.dimension_labels?.[key];return typeof labels==='string'?labels:labels?.[value]||({all:'All containment',fc:'Fully contained',pc:'Partially contained',FC:'Fully contained',PC:'Partially contained',fine:'Fine',miles:'Miles',hybrid:'Pierre hybrid; NC hits only',all_particles:'Previous all-particle method (NC heshw)',all_particle:'Previous all-particle method (NC heshw)',hits:'Hits only',raw:'Raw responses (diagnostic)',fitter_policy:'MaCh3 numerical policy'}[value]||value);}
 function syncDimensions(preferred={}){
  let candidates=DATA.datasets;
  for(const key of dimensionKeys){const items=[];const seen=new Set();for(const d of candidates){const id=String(d.dimensions[key]);if(!seen.has(id)){seen.add(id);items.push({id,label:dimensionLabel(d,key,id)});}}
@@ -371,6 +434,7 @@ async function showPage(){
   const selection=dataset.selections.find(x=>x.id===sid),dial=dataset.dials.find(x=>x.id===did),canvas=el('canvas').value;
   if(state.dataset?.id!==dataset.id||state.canvas!==canvas)makeGrid(dataset);
   Object.assign(state,{dataset,page,selection,dial,mode:el('mode').value,canvas});state.hidden=new Set();
+  const acceptance=directionAcceptanceNote(dataset);el('direction-acceptance').textContent=acceptance;el('direction-acceptance').hidden=!acceptance;
   buildNotes(dataset,selection,dial,page);await renderCharts();if(ticket!==state.ticket)return;
   const index=Array.from(el('dial').options).findIndex(x=>x.value===did);
   el('status').textContent=dimensionKeys.map(k=>dimensionLabel(dataset,k,String(dataset.dimensions[k]))).join(' · ')+' · '+selection.label+' · '+(index+1)+'/'+el('dial').options.length+' parameters · '+dial.values.length+' stored point(s)';
@@ -413,22 +477,15 @@ def main():
     """Package aggregate files; never load event-level data or contact ROOT."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", action="append", default=[], metavar="NAME=MANIFEST")
-    parser.add_argument("--manifest-list", type=Path, help="JSON list of {id,manifest} entries")
+    parser.add_argument("--manifest-list", type=Path, action="append", default=[],
+                        help="JSON list of {id,manifest} entries; repeat to combine reconstruction methods")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--title", default="Atmospheric cross-section response atlas")
     parser.add_argument("--default-dataset")
     parser.add_argument("--embed", action="store_true", help="Embed all payloads; use only for small collections")
     args = parser.parse_args()
     specs = list(args.dataset)
-    if args.manifest_list:
-        collection = json.loads(args.manifest_list.read_text())
-        if isinstance(collection, dict):
-            collection = collection["datasets"]
-        for item in collection:
-            path = Path(item["manifest"])
-            if not path.is_absolute():
-                path = args.manifest_list.parent / path
-            specs.append(item["id"] + "=" + str(path))
+    specs.extend(collection_specs(args.manifest_list))
     require(specs, "Supply --dataset or --manifest-list")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     assets = args.output.with_suffix(".assets")

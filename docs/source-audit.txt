@@ -74,6 +74,37 @@ Henrique/Pierre notebook repository head remains b963239b. Exact final plotting
 generator for paper Figures16/18 has NOT been located/confirmed. Notebook helper
 studies and the paper's textual definitions cannot establish exact final code.
 
+3a. Previous method restored for the viewer comparison
+------------------------------------------------------
+This is the previous local flat-CAF study's all-particle method, not the older
+systs.py hybrid helper described above. Local source evidence:
+  xsec_dial_study/stream_flat_cafs.py lines88-110
+    SHA256 1aca1b5091b8c0584bcc9549f7d31efa63291c3e8c1dbc07ca1d513a70e541ae
+  xsec_dial_study/build_nominal.py lines48-54
+    SHA256 156d0f8aace27db5173bcffd5a1e1bcc4be9b59b6e4b80c4079279dc453d8a9c
+  method_audit/audit_methods.py lines68-70
+    SHA256 aa07fd4600eead1ca368fa29b85bf32c5ef49016b4b88cf3ecec35e5e6246248
+The local files are historical workspace artifacts, not upstream DUNE commits.
+They establish heshw for electron CC AND NC, lngtrk for muon CC (both signs),
+at every energy and particle multiplicity. Require a finite vector with
+abs(norm-1)<=1e-4, normalize all components, then take cosZ=-d.y/norm.
+The current all_particles option restores these direction rules only; it keeps
+the current energy estimators, event cuts, binning, weights and geometry.
+The hybrid-only nc_direction=hits guard does not change this previous NC choice.
+
+The common-valid nominal comparison covers all 145 local cache files and
+9,587,231 events valid under both methods. No cross-section response is applied;
+both methods use identical positive Honda-times-stored-xsec weights. In 0.01
+cosZ bins all five truth channels have their largest interior bins near +/-0.815.
+NC negative peak: 90,165 hybrid / 15,794 previous events, weighted 704.94 / 120.91.
+NC positive peak: 83,902 hybrid / 16,242 previous events, weighted 677.77 / 128.59.
+NC hybrid always uses hits; CC peak decompositions also put the sharp increase
+in the hit contribution. Thus changed acceptance and the energy switch are not
+required to obtain these features. This identifies the cached chosen direction,
+not an upstream producer mechanism or a statistical test of physical correctness.
+Portable reproduction: atmo-compare-directions; JSON/NPZ retain counts, source
+breakdowns, config/code hashes and histogram edges beside the comparison PDF.
+
 4. Reconstructed energy and inelasticity
 --------------------------------------
 Pierre current lines622-633, Miles SingleLoad lines175-185, and Dan3D merge:

@@ -65,7 +65,10 @@ Keep `explorer.html` beside its `explorer.assets` directory when sharing it.
 
 The default is the source-backed **MaCh3 numerical policy**. The raw option is a
 diagnostic view with explicit missing/undefined values. Choose a truth channel,
-dial, containment, binning and rate or unit-area display. Equal-magnitude positive
+dial, containment, binning, angle reconstruction and rate or unit-area display.
+The angle control offers whichever methods have been aggregated and supplied to
+the viewer; follow the two-method example below to include both.
+Equal-magnitude positive
 and negative displacements share colors with different line styles; the actual
 stored CV is black and solid. A missing CV uses an explicitly labelled unity
 reference, and the coupled MEC scenarios are labelled as scenarios, not sigmas.
@@ -85,6 +88,74 @@ atmo-render outputs/pilot/fine_fc_fitter_policy/manifest.json \
 Use dataset paths from `manifest_list.json`; it is the authoritative list.
 The renderer can export every stored dial and selection by omitting those
 filters, but this makes a large book. It never needs to reread the CAF.
+
+## Compare the previous and hybrid angle reconstruction
+
+`analysis_v2.yaml` selects the Pierre hybrid. The bundled
+`analysis_all_particles.yaml` differs only in `physics.direction_method`:
+
+| Mode | Electron CC and antielectron CC | Muon CC and antimuon CC | NC |
+|---|---|---|---|
+| `all_particles` (previous) | `dir.heshw` at every energy | `dir.lngtrk` at every energy | `dir.heshw` at every energy |
+| `hybrid` (Pierre update) | `dir.calo` when fewer than two particles or `!(Enu.calo < 1.3)`, otherwise `dir.heshw` | Same switch, otherwise `dir.lngtrk` | Always `dir.calo` |
+
+Both normalize the full three-component vector and use `cosZ=-d.y/|d|`.
+The previous method also requires `abs(|d|-1)<=1e-4`, reproducing the original
+study's direction validity. The hybrid accepts any finite nonzero vector.
+The `nc_direction: hits` setting is a guard for the hybrid definition; it does
+not override the previous method's NC heshw choice. The previous option restores
+the angle definition only. Current energy estimators, FC/PC cuts, weights, bins
+and 15 km geometry stay the same. It does not restore older studies' energy
+limits or muon-energy estimator.
+
+Starting from the same extracted cache, aggregate each mode separately:
+
+```bash
+atmo-aggregate --index cache/v2/scan_index.json \
+  --config atmospheric_response/configs/analysis_v2.yaml \
+  --work-dir work/hybrid --output-dir outputs/hybrid
+atmo-aggregate --index cache/v2/scan_index.json \
+  --config atmospheric_response/configs/analysis_all_particles.yaml \
+  --work-dir work/previous --output-dir outputs/previous
+atmo-viewer --manifest-list outputs/hybrid/manifest_list.json \
+  --manifest-list outputs/previous/manifest_list.json \
+  --output outputs/explorer.html
+```
+
+Each run supplies ten datasets; the combined viewer has twenty. Colliding
+dataset IDs are automatically namespaced, while each manifest path still
+resolves beside its own list. The first collection supplies the default method.
+The control preserves the current dial, selection, bins, containment, weight
+policy and canvas when those combinations are available. CSV exports and saved
+URL state record the selected method.
+
+Each method uses its own valid-direction selection. Therefore changing the
+method can change **truth spectra as well as reconstructed spectra**. In this
+production the hybrid selects 9,743,963 events and the previous method 9,587,246;
+9,587,231 are valid under both. To isolate reconstructed values on identical
+events and nominal weights, run the separate common-valid audit:
+
+```bash
+atmo-compare-directions --index cache/v2/scan_index.json \
+  --config atmospheric_response/configs/analysis_v2.yaml \
+  --output-dir outputs/direction_comparison
+```
+
+This command reads only primitive arrays from the local cache. It saves the
+common-event zenith spectra and signed angular-width comparison, plus raw counts,
+weighted yields, chosen-method breakdowns and distributions around the switch.
+It applies the positive nominal Honda-times-xsec weight without a dial response
+or oscillations. `--limit-files 1` makes an explicitly labelled pilot.
+It is a nominal comparison, separate from the method-specific response atlas.
+
+The full common-valid audit finds hybrid interior peaks in the 0.01-wide bins
+centered at cosZ=−0.815 and +0.815. For NC these contain 90,165 and 83,902 events;
+the previous method puts 15,794 and 16,242 events in those same bins. All hybrid
+NC directions use hits, so neither changed acceptance nor the 1.3 GeV switch
+is needed to produce these peaks. The CC hit contribution also peaks there.
+This identifies a feature of the cached hit-direction distribution, not its
+upstream producer mechanism. The audit is descriptive, not a significance test
+or a claim that one method is physically correct.
 
 ## Change bins without rereading ROOT
 
@@ -121,11 +192,14 @@ individual events, including a distinct ALL-containment calculation.
 The default common selection is one MC and one Pandora interaction, a supported
 truth category, positive finite `xsec * matching-flavour Honda flux`, true energy
 0.1–100 GeV, the configured vertex fiducial volume, a valid containment minimum,
-and a finite nonzero true/reco direction. Thus the plotted truth spectra also
+and valid true/reco directions as defined for the selected method below. Thus the plotted truth spectra also
 carry reconstruction/containment acceptance. These common cuts are configurable;
 each observable additionally has its own finite-value mask. The signed angular
 profile retains its earlier 0.1–10 GeV range unless its YAML axis is changed.
 
+The flat `cafTree` particle-wall branch is
+`rec.common.ixn.pandora.part.pandora.walldist` (cm), paired with
+`rec.common.ixn.pandora.part.pandora.origRecoObjType`.
 For containment, exclude the unassociated-hit object (`origRecoObjType == 3`)
 and take the minimum particle `walldist` in cm. FC means minimum **>10 cm**;
 PC means **0–10 cm inclusive**. Missing, negative or >10000 cm minima are unknown.

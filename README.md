@@ -2,12 +2,15 @@
 
 The updated flat-CAF workflow is in [`atmospheric_response/`](atmospheric_response/).
 It adds bounded and resumable extraction, FC/PC containment, Pierre's updated
-hybrid direction, 13 observables on two canvases, exact configurable YAML bins,
+hybrid direction with a toggle for the previous all-particle reconstruction,
+13 observables on two canvases, exact configurable YAML bins,
 paired zenith-shape tests, and the source-checked MaCh3 numerical weight policy.
 The offline app includes every stored dial point. Read the
 [installation and analysis guide](docs/atmospheric-response.md) before running;
 it distinguishes truth diagnostics from fitter samples and labels the L/E
 geometric proxies and unverified combined-CV normalization.
+The method comparison can also use exactly the same valid events through
+`atmo-compare-directions`, separating direction changes from acceptance changes.
 
 ```bash
 python -m pip install -e '.[test]'

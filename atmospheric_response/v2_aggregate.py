@@ -375,7 +375,10 @@ def make_outputs(cfg,cv_map,audit,output):
                     f"clamp[{rules['knot_min']:g},{rules['knot_max']:g}]; nonpositive final weight→0.")
                     if policy=='fitter_policy' else 'RAW diagnostic: signed rates; nonfinite-affected bins and negative-weight quantiles undefined.')
                 manifest = {'schema_version':2,'data_file':'curves.npz',
-                    'title':f'Atmospheric response explorer · {profile} · {containment.upper()} · {policy}',
+                    'title':(f'Atmospheric response explorer · {profile} · {containment.upper()} · {policy} · '+
+                        {'hybrid':'Pierre hybrid (NC hits)',
+                         'all_particles':'Previous all-particle reconstruction (NC heshw)',
+                         'hits':'Hits only'}[cfg['physics']['direction_method']]),
                     'output_prefix':name,'allow_missing_histogram_bins':policy=='raw',
                     'dimensions':{'policy':policy,'binning':profile,'containment':containment,
                                   'direction':cfg['physics']['direction_method']},
@@ -386,7 +389,7 @@ def make_outputs(cfg,cv_map,audit,output):
                         'containment':{'all':'All containment','fc':'Fully contained',
                                        'pc':'Partially contained'}[containment],
                         'direction':{'hybrid':'Pierre hybrid; NC hits only',
-                                     'all_particles':'Legacy all particles (NC heshw)',
+                                     'all_particles':'Previous all-particle method (NC heshw)',
                                      'hits':'Hits only'}.get(cfg['physics']['direction_method'],
                                                           cfg['physics']['direction_method'])},
                     'weight_description':'Unoscillated matching-flavor Honda flux × stored xsec × one stored response. '+policy_text,
@@ -397,6 +400,10 @@ def make_outputs(cfg,cv_map,audit,output):
                         'baseline':('Fixed production-height geometry proxy' if cfg['physics'].get('true_baseline_mode')=='geometric'
                             else 'CAF stored baseline converted metres to km; missing values remain unavailable'),
                         'selection':cfg['selection'],'weight_policy':cfg['weight_policy'],
+                        'direction_method':cfg['physics']['direction_method'],
+                        'direction_acceptance':('The selected method must supply a valid direction. '
+                            'Switching methods can therefore change event acceptance, including truth spectra. '
+                            'The separate common-valid audit isolates direction-value changes.'),
                         'energy_estimator':cfg['physics']['energy_estimator'],
                         'flatness':'Paired-event finite-MC test of proportional marginal shapes; not a test of nuclear angular dependence',
                         'reference_warning':'Shared CV factors are not multiplied; exact absolute exposure and combined tune remain unverified'},

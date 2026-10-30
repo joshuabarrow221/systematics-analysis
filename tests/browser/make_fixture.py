@@ -11,7 +11,9 @@ Run from the repository root, after installing the package and its dependencies:
 
 The deliberately small test bins are NOT the production Miles binning. They
 exercise zero lower edges, a wide final bin, selection-specific overrides,
-unsupported combinations, two canvases, and both policy choices. Histograms
+unsupported combinations, two canvases, both policy choices, and two distinct
+angle-reconstruction datasets. The latter are deliberately different so a stale
+page/cache cannot pass the method-toggle regression. Histograms
 other than true zenith contain arbitrary test counts. The true-zenith fixture
 uses seeded random samples to exercise the actual shared-event test helper.
 No ROOT file, remote mount, or analysis dataset is read.
@@ -115,6 +117,11 @@ def make_fixture(output: Path) -> Path:
             target = output / ident
             target.mkdir(exist_ok=True)
             np.savez_compressed(target / 'curves.npz', **arrays)
+            second_dial = copy.deepcopy(dial)
+            second_dial.update(id='test_second', label='SECOND SYNTHETIC UI TEST (not analysis)')
+            # A nonfirst parameter catches accidental dropdown resets when a
+            # reconstruction change selects another aggregate dataset.
+            curves += [{**record, 'dial_id': 'test_second'} for record in list(curves)]
             document = dict(
                 schema_version=2, title='SYNTHETIC UI TEST — NOT ANALYSIS DATA',
                 data_file='curves.npz', weight_description='Synthetic testing values only.',
@@ -122,12 +129,40 @@ def make_fixture(output: Path) -> Path:
                 dimensions=dict(policy=policy, binning=binning, containment=containment,
                                 direction='hybrid'),
                 provenance=dict(geometry=dict(earth_radius_km=6371, production_height_km=15,
-                                              detector_depth_km=0)),
+                                              detector_depth_km=0),
+                                selection=dict(require_valid_direction=True)),
                 selections=[dict(id=sid, label=sid) for sid in ('nue_cc', 'numu_cc', 'nc')],
-                dials=[dial], observables=observables, curves=curves)
+                dials=[dial, second_dial], observables=observables, curves=curves)
             (target / 'manifest.json').write_text(json.dumps(document, allow_nan=False),
                                                 encoding='utf-8')
             collection.append(dict(id=ident, manifest=ident + '/manifest.json'))
+    for entry in list(collection):
+        source = output / entry['manifest']
+        document = json.loads(source.read_text())
+        with np.load(source.parent / 'curves.npz') as original:
+            arrays = {key: value.copy() for key, value in original.items()}
+        # These are arbitrary synthetic display distinctions, not a proposed
+        # physics transformation. Every unrelated observable stays identical.
+        for sid in ('nue_cc', 'numu_cc', 'nc'):
+            for oid in ('reco_coszenith', 'reco_l_over_e'):
+                key = sid + '_' + oid
+                if key in arrays:
+                    arrays[key] = np.roll(arrays[key], 1, axis=1)
+            key = sid + '_angular_resolution'
+            if key in arrays:
+                arrays[key] *= .75
+        document['dimensions']['direction'] = 'all_particles'
+        document['provenance']['direction_acceptance'] = (
+            'SYNTHETIC provenance acceptance note: selected method validity can change '
+            'the sample; a common-valid comparison isolates direction values.')
+        for selection in document['selections']:
+            selection['description'] = 'Synthetic previous-method fixture; no analysis events.'
+        ident = 'all_particles_' + entry['id']
+        target = output / ident
+        target.mkdir(exist_ok=True)
+        np.savez_compressed(target / 'curves.npz', **arrays)
+        (target / 'manifest.json').write_text(json.dumps(document, allow_nan=False), encoding='utf-8')
+        collection.append(dict(id=ident, manifest=ident + '/manifest.json'))
     path = output / 'collection.json'
     path.write_text(json.dumps(collection, indent=2) + '\n', encoding='utf-8')
     return path
