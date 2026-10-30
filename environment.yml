@@ -11,6 +11,7 @@ dependencies:
   - uproot>=5.0.0
   - scipy>=1.10.0
   - matplotlib>=3.5.0
+  - plotly>=6.0.0
   - tqdm>=4.60.0
   - pyyaml>=6.0.0
   - particle>=0.23.0

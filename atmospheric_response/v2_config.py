@@ -184,4 +184,5 @@ def resolve_edges(cfg, profile_name, containment, selection, observable):
             )
     if axis not in specs:
         raise ValueError(f'{profile_name}: no edges for {observable}/{axis}')
-    return edges_from_spec(specs[axis]), 'Configured fine axis' if 'samples' not in profile else 'Fine-axis fallback for an observable without supplied Miles edges'
+    return edges_from_spec(specs[axis]), ('Configured axis' if 'samples' not in profile
+        else 'Configured axis fallback for an observable without sample-specific edges')

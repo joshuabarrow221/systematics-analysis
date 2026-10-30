@@ -156,3 +156,29 @@ These tests use small arrays and local byte files, without ROOT ingestion.
 The module returns every input row with separate observable masks. It never
 globally removes an event for invalid direction, energy decomposition, FC/PC,
 or missing baseline. The caller applies selected category/containment/binning.
+
+8. Observed response scope: EnergyDependence_CCMEC
+------------------------------------------------
+The supplied response changes NC events as well as CC events. This is not fixed
+by changing angular reconstruction or relabelling the NC category. The inspected
+GENIE routine's outer guard accepts MEC, and CalcWeightEnergyDependence has no
+CC-only guard; neighboring fraction/shape routines do. This supports the observed
+pattern, but does not establish the physical intention or exact production build.
+The envelope uses CC model graphs and a single initialization state. Preserve
+the provided responses; confirm producer revision and intended NC scope before
+using this as a physical NC uncertainty in a fitter.
+https://github.com/GENIE-MC/Reweight/blob/5d45f8a224611dea3b8a1e9245f0d8eb2e666a38/src/RwCalculators/GReWeightXSecMEC.cxx#L1453
+https://github.com/GENIE-MC/Reweight/blob/5d45f8a224611dea3b8a1e9245f0d8eb2e666a38/src/RwCalculators/GReWeightXSecMEC.cxx#L1354
+
+9. Electron reconstructed-y endpoint in the first-file diagnostic
+----------------------------------------------------------------
+With the current common selection, the first file has 48247 valid CC reco-y
+values; none equals1 or lies within1e-5 of1. Of384 electron/antielectron events
+in 0.99<=y<=1,381 have Erec-Ehad within1keV of0.511MeV. This is an observed
+electron-rest-mass signature, not an artificial calo/calo=1 assignment.
+The inspected producer computes p=sqrt(T*(T+2*m_e)), E_lep=sqrt(p*p+m_e*m_e),
+then adds hadronic energy to obtain total energy. Thus T near0 gives
+y near1-m_e/Erec. Zero reconstructed electron kinetic energy is a strong
+inference for these events; the exact production build and individual shower
+associations were not established from this local cache check.
+https://github.com/DUNE/dunereco/blob/ca41ef700a1283022126fed4966e7fda16da8334/dunereco/FDSensOpt/NeutrinoEnergyRecoAlg/NeutrinoEnergyRecoAlg.cc#L164

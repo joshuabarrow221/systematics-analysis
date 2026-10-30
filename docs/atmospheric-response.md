@@ -196,6 +196,10 @@ Defaults are R=6371 km, height=15 km (the requested effective production altitud
 and depth=0 km. The implementation uses a
 stable equivalent expression down-going. This is not a recovered production
 vertex, a surveyed detector depth, or the fitter's production-height average.
+At depth zero this is exactly the supplied slide's total-path formula,
+`sqrt((R+h)^2 - R^2*sin(pi-theta_z)^2) + R*cos(pi-theta_z)`, including the
+atmospheric segment. Its downward, horizontal and upward limits are 15 km,
+approximately 437 km and 12,757 km respectively for the default geometry.
 Set `true_baseline_mode: stored` to leave true L/E unavailable when stored values
 are absent. Never label the geometric curve as an exact stored true baseline.
 
