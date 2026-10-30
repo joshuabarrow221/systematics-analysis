@@ -1,3 +1,24 @@
+# Atmospheric response explorer
+
+The updated flat-CAF workflow is in [`atmospheric_response/`](atmospheric_response/).
+It adds bounded and resumable extraction, FC/PC containment, Pierre's updated
+hybrid direction, 13 observables on two canvases, exact configurable YAML bins,
+paired zenith-shape tests, and the source-checked MaCh3 numerical weight policy.
+The offline app includes every stored dial point. Read the
+[installation and analysis guide](docs/atmospheric-response.md) before running;
+it distinguishes truth diagnostics from fitter samples and labels the L/E
+geometric proxies and unverified combined-CV normalization.
+
+```bash
+python -m pip install -e '.[test]'
+python -m pytest
+atmo-bins --profile miles
+```
+
+Large CAFs, caches and generated outputs are intentionally excluded from Git.
+The following original tools remain available for their historical input schema;
+their earlier angular helper is not used by the new workflow.
+
 # Description
 
 The code hereafter is made to read in the xsec systematic variations extracted from `nusystematics`. It is composed of several tools in order to do so.

@@ -1,0 +1,75 @@
+# All numerical choices for the response explorer. Length units are explicit.
+# Editing bins requires local aggregation again; the ROOT cache is reusable.
+schema_version: 2
+selection:
+  # The recent production extends to 100 GeV. The paper comparison remains
+  # a separate 0.1–10 GeV study; this diagnostic keeps the full input range.
+  true_energy_min_GeV: 0.1
+  true_energy_max_GeV: 100.0
+  require_valid_wall: true
+  require_valid_direction: true
+  # Existing 20 cm FV assumption; actual production geometry not established.
+  fiducial_bounds_cm:
+    x: [-343.37605, 343.37605]
+    y: [-587.82875, 587.82875]
+    z: [19.12375, 1373.46375]
+physics:
+  direction_method: hybrid
+  nc_direction: hits
+  hybrid_switch_energy_gev: 1.3
+  hit_collection_type: 3
+  containment_threshold_cm: 10.0
+  containment_max_valid_cm: 10000.0
+  # Matches the inspected MaCh3 loaders. matched_range is an explicit alternate.
+  energy_estimator: mach3
+  # Stored FD baseline is NaN in the probe. Both L/E panels explicitly state
+  # that a fixed-height geometric baseline is a proxy, not an oscillation fit.
+  true_baseline_mode: geometric
+  geometry:
+    earth_radius_km: 6371.0
+    production_height_km: 15.0  # User-selected effective atmospheric production altitude.
+    detector_depth_km: 0.0
+weight_policy:
+  default: fitter_policy
+  nonfinite_knot_replacement: 1.0
+  knot_min: -9999.0
+  knot_max: 9999.0
+  nonpositive_final_weight: zero
+statistics:
+  minimum_effective_count: 20
+  # Optional conditional checks use this fixed true-energy stratification.
+  # They do not condition away Q², interaction class or detector acceptance.
+  conditional_energy_edges: [0.1, 0.2, 0.4, 0.8, 1.6, 3.2, 6.4, 12.8, 25.6, 51.2, 100]
+  conditional_coszenith_edges: [-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1]
+binning_profiles:
+  fine:
+    label: Fine diagnostic bins
+    axes:
+      particle_energy: {spacing: log, min: 0.001, max: 10, bins: 200}
+      coszenith: {spacing: linear, min: -1, max: 1, bins: 200}
+      profile_energy: {spacing: log, min: 0.1, max: 10, bins: 50}
+      neutrino_energy: {spacing: log, min: 0.1, max: 100, bins: 200}
+      inelasticity: {spacing: linear, min: 0, max: 1, bins: 100}
+      l_over_e: {spacing: log, min: 0.1, max: 1000000, bins: 200}
+  miles:
+    label: Miles FC/PC sample bins
+    inherits: fine
+    # These labels select existing truth-channel diagnostics; they do not
+    # silently turn the study into CVN-tagged fitter samples.
+    samples:
+      PC_nue:
+        CosZ: [-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1]
+        RecoENu: [0, 0.2, 0.4, 0.6, 0.8, 1.05, 1.4, 2, 3.25, 100]
+        RecoY: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1]
+      FC_numu:
+        CosZ: [-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1]
+        RecoENu: [0, 0.4, 0.6, 0.8, 1, 1.1, 1.2, 1.45, 1.65, 1.9, 100]
+        RecoY: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1]
+      FC_nue:
+        CosZ: [-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1]
+        RecoENu: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.1, 1.2, 1.35, 1.5, 1.7, 1.95, 2.25, 3.25, 100]
+        RecoY: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1]
+      PC_numu:
+        CosZ: [-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1]
+        RecoENu: [0, 0.4, 0.6, 0.8, 1, 1.15, 1.3, 1.45, 1.6, 1.8, 2, 2.2, 2.45, 2.7, 3, 3.35, 3.75, 4.25, 4.85, 6.85, 100]
+        RecoY: [0, 0.1, 0.2, 0.3, 1]

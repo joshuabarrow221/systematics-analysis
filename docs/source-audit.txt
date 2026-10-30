@@ -1,0 +1,158 @@
+Pinned source audit, checked 2026-10-30
+=====================================
+
+Scope: FC/PC, direction switching, energy/y estimators, baseline conventions,
+and malformed cross-section weights. These are code findings, not a claim that
+the truth-channel diagnostic is the full CVN-selected MaCh3 fit preparation.
+Read-only GitHub connector used; no ROOT files read by this research agent.
+
+1. Current branches and exact references
+---------------------------------------
+Pierre: pgranger23/MaCh3_DUNE pgranger/atm-cafnusyst
+  3eb43836f8bffc7060e6812807579ac46ca6d0a7 (2026-10-29)
+  https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Samples/SampleHandlerAtm.cpp
+Dan: DUNE/MaCh3_DUNE dbarrow257/feature/AtmRefreshAndLoading
+  e50543c6a8ae8aab714befb03b71bef13b13311d (2026-10-08)
+Dan: DUNE/MaCh3_DUNE dbarrow257/feature/3DSampleBinningMerge
+  36f56b487fdda78de7f0b1c7d6bea7b7baefb79d (2026-10-14)
+Miles: DUNE/MaCh3_DUNE mhanson/feature/3DBinning_SingleLoad
+  ba3afa6cde8276871307e33b33e8862191fec0f1 (2026-06-03)
+Miles: DUNE/MaCh3_DUNE mhanson/feature/3DBinning
+  7e5813057f9b1498af38109882da1254d7d5f72c (2026-04-20)
+  All heads above were reconfirmed by live GitHub commits?sha=branch queries.
+DUNE/duneana develop: 10384a3fe6945e2d143f55e86221740bc39a886f
+DUNE/duneanaobj v04_01_00: de5d79e6732584e65eb40634ed42b18aa112b1a6
+User fork main: e3e71ab2ec790ed518a25662ab6c973eafd0fe8b
+Henrique apc_atmo_repo master: b963239b7cd2fecf45c6d8e11783bc74e38126dc
+
+2. FC/PC: exact source-backed implementation
+-------------------------------------------
+Pierre SampleHandlerAtm.cpp599-608: initialize minimum to 1e8; loop first
+Pandora interaction's part.pandora; skip origRecoObjType==kHitCollection;
+if part.walldist < minimum then update minimum. This is the minimum distance
+of any associated particle spacepoint to the active-volume bounding wall,
+NOT vertex-wall distance or track-end distance.
+Pierre lines1090-1101: min>1e4 or min<0 -> unknown; min>FCPCSeparation -> FC;
+otherwise -> PC. Config has FCPCSeparation=10.0 cm. Thus exactly10cm is PC.
+https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/Samples/SampleHandler_FD_Atm_FlatCAF.yaml#L56
+Enum kHitCollection=3 (kUnknownRecoObj=0,kTrack=1,kShower=2):
+https://github.com/DUNE/duneanaobj/blob/de5d79e6732584e65eb40634ed42b18aa112b1a6/duneanaobj/StandardRecord/SREnums.h#L221
+Wall producer GetWallDistance/PFParticle: empty spacepoints return double max;
+stored float can become +inf. NaN/+inf do not lower a finite C++ minimum;
+-inf/negative values do, causing unknown containment. All unusable walls leave
+the sentinel and therefore unknown. The v2 reduction matches these semantics,
+while retaining invalid-wall counts separately for audit.
+https://github.com/DUNE/duneana/blob/10384a3fe6945e2d143f55e86221740bc39a886f/duneana/CAFMaker/CAFMaker_module.cc
+  Relevant lines930-999,1259-1260; units cm. See local source snapshot.
+
+3. Hybrid direction and NC: source versus supplied update
+--------------------------------------------------------
+The user's direct Pierre message is the source for the NEW switch:
+  nParticles = count(origRecoObjType != 3)
+  useHits = nParticles < 2 || !(Enu.calo < 1.3)
+  d = useHits ? dir.calo : isELike ? dir.heshw : dir.lngtrk
+  cosZ = -d.y / sqrt(d.x*d.x + d.y*d.y + d.z*d.z)
+The current checked MaCh3 branches still use heshw for e-like and lngtrk for
+mu-like samples without this switch; do not describe the new switch as already
+merged there. Equality1.3 and NaN calo energy select hits, literally as supplied.
+NC always uses hits in the new hybrid, as explicitly confirmed by the user and
+paper section3.4.2. The previous all-particles diagnostic keeps NC=heshw so it
+can still compare that distinct method. A true NC selection differs from the
+paper's reconstructed NC-tag selection; label that distinction.
+https://arxiv.org/html/2601.05697v1#S3.SS4
+Pierre/MaCh3 determines sample e-like/mu-like through CVN thresholds (numu>.56,
+then nue>.55, otherwise NC); the present five diagnostic categories remain
+truth categories. No claim is made that their acceptance is identical.
+
+User fork systs.py at e3e71ab2 provides older hybrid helper:
+  npfps<3 or recoE_nue>1.3 -> direc_nc, otherwise flavour reco PFP direction;
+  NC -> direc_nc. However direc_nc is loaded from dir.heshw.y at lines234-236,
+  so its variable name alone is NOT evidence that it is actually calorimetric
+  hit direction. The old helper's y!=0 test also drops valid horizontal events.
+https://github.com/joshuabarrow221/systematics-analysis/blob/e3e71ab2ec790ed518a25662ab6c973eafd0fe8b/systs.py
+Henrique/Pierre notebook repository head remains b963239b. Exact final plotting
+generator for paper Figures16/18 has NOT been located/confirmed. Notebook helper
+studies and the paper's textual definitions cannot establish exact final code.
+
+4. Reconstructed energy and inelasticity
+--------------------------------------
+Pierre current lines622-633, Miles SingleLoad lines175-185, and Dan3D merge:
+  e-like: Erec=Enu.e_calo; Ehad=Enu.e_had; Elep=Erec-Ehad
+  mu-like: Erec=Enu.lep_calo; Ehad=Enu.e_had; Elep=Erec-Ehad
+These formulas do not branch on FC/PC. The mu e_had pairing is an observed
+fitter convention, not a verified physically matched range/hadronic estimator.
+Pierre current line671 sets yrec = Ehad/Erec if Erec>0, else0.
+Loader rejects NaN RecoCZ, RecoENu, RecoEHad, RecoELep. It has no direct
+had>0, Ehad<=Enu or y-in-[0,1] cut. Core later rejects nonfinite fit coordinates.
+v2 default energy_estimator=mach3 uses these branches, keeps finite y outside
+[0,1] for under/overflow accounting, and preserves the finite nonpositive-total
+y=0 convention. Our masks are observable-specific, so bad reconstruction does
+not erase truth observables. This differs intentionally from global fitter
+event acceptance. The optional matched_range proxy uses mu_range/mu_had with
+the previous conservative had>0 and total>=had decomposition requirement.
+NC: Enu.calo is a visible-energy proxy. Reco charged-lepton energy and reco y
+are unavailable; calo/calo=1 is not an informative NC inelasticity estimate.
+
+True y uses rec.mc.nu.inelasticity. Header describes q0/Enu, producer assigns
+neutrino.Y(); v2 also returns stored_y-q0/E as a crosscheck. No silent overwrite.
+https://github.com/DUNE/duneanaobj/blob/de5d79e6732584e65eb40634ed42b18aa112b1a6/duneanaobj/StandardRecord/SRTrueInteraction.h
+https://github.com/DUNE/duneana/blob/10384a3fe6945e2d143f55e86221740bc39a886f/duneana/CAFMaker/CAFMaker_module.cc#L430
+
+5. Baseline/L over E: explicit geometry, not recovered truth
+----------------------------------------------------------
+SRTrueInteraction.baseline is metres; actual stored values must be divided by
+1000 for km. Inspected CAFMaker leaves baseline/prod_vtx unfilled (lines468-469).
+Parent's independent 2000-event primitive probe found all2000 baseline values
+NaN. Thus an honest actual-baseline true L/E is unavailable in this probe.
+Explicit true_baseline_mode=geometric uses true angle and a fixed-height shell;
+reco L/E always uses reconstructed angle with the same geometry and reco E.
+  r=R-depth; L=sqrt(r*r*cosZ*cosZ+(R+h)^2-r*r)-r*cosZ
+  defaults R6371km, h15km, depth0km. cosZ+1 down-going gives h+depth;
+  cosZ-1 up-going gives2R+h-depth. Divide L[km] by E[GeV].
+The 15 km height is the user's latest slide-based choice for this analysis,
+overriding the earlier 25 km assumption. R6371/h25 appear in the inspected
+MaCh3 atmospheric covariance config, while current NuOsc uses production-height
+distribution averaging. The source's historical 25 km value is not being
+misidentified as the newly selected 15 km convention. This fixed-height visualization
+is NOT equivalent to that averaging, and depth0 is an explicit convention,
+not a sourced SURF detector depth. All parameters are configurable.
+https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/CovObjs/OscCov_PDG2021_v2_Atmospherics_WithEarthSysts.yaml
+https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/NuOsc/CUDAProb3_SubSampling_ProdHAvg_EarthSysts.yaml
+
+6. Current malformed cross-section weight policy
+------------------------------------------------
+Pierre current lines717-733: absent response -> flat1; malformed response length
+throws; each nonfinite knot ->1.0 and audit counter++; then ALWAYS std::clamp to
+Dial.KnotLowBound/UpBound. These bounds come from parameter spline settings.
+Missing zero nominal knot is inserted at1 only if zero lies strictly between
+the minimum/maximum supplied dial values (lines1049-1059).
+https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Samples/SampleHandlerAtm.cpp#L717
+Pierre CMake requests MaCh3 v2.6.0_patches by default. Its checked head is
+4561fdc0959d95df69fb49ed034c54102432cfca. An externally sourced exact2.6.0
+installation or build override may differ, so record the actual build if used.
+Core ParameterHandlerGeneric.cpp525-526 defaults the spline weight bounds to
+Manager/Core.h86-88: lower=-9999, upper=9999. These are knot WEIGHT bounds;
+do not confuse them with the separately named parameter-coordinate bounds.
+https://github.com/mach3-software/MaCh3/blob/4561fdc0959d95df69fb49ed034c54102432cfca/Manager/Core.h#L84
+Core SampleHandlerBase.cpp402-405 and464-467 skips totalweight<=0 during fill;
+GetEventWeight1130-1135 returns0 for totalweight<=0. A single negative knot
+with positive other factors therefore contributes0 in a one-dial study.
+Arbitrary final NaN is NOT explicitly made0 by this comparison (NaN<=0 false).
+Do not call NaN->0 a source rule: CAF knot NaN->1 is the verified source rule.
+Any additional nonfinite-final-weight guard in this analysis must be separately
+identified and audited. Weight handling/interpolation belongs to aggregation,
+not the pure physics-observable module.
+https://github.com/mach3-software/MaCh3/blob/4561fdc0959d95df69fb49ed034c54102432cfca/Samples/SampleHandlerBase.cpp#L402
+
+7. Required inputs and interface
+--------------------------------
+Required branch constants and the raw cache schema are defined in
+atmospheric_response/v2_extract.py. Pure observable functions and their units
+are in atmospheric_response/v2_physics.py. Semantic physics regression tests
+are in tests/test_v2_physics.py; extraction and resume integrity tests are in
+tests/test_v2_extract.py. Run these from the repository root with:
+  python -m pytest tests/test_v2_physics.py tests/test_v2_extract.py
+These tests use small arrays and local byte files, without ROOT ingestion.
+The module returns every input row with separate observable masks. It never
+globally removes an event for invalid direction, energy decomposition, FC/PC,
+or missing baseline. The caller applies selected category/containment/binning.

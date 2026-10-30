@@ -1,0 +1,1332 @@
+[
+  {
+    "index": 0,
+    "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin0",
+    "id": 0,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 1,
+    "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin1",
+    "id": 1,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 2,
+    "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin2",
+    "id": 2,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 3,
+    "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin3",
+    "id": 3,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 4,
+    "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin4",
+    "id": 4,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 5,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin0",
+    "id": 5,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 6,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin1",
+    "id": 6,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 7,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin2",
+    "id": 7,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 8,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin3",
+    "id": 8,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 9,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin4",
+    "id": 9,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 10,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin0",
+    "id": 10,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 11,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin1",
+    "id": 11,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 12,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin2",
+    "id": 12,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 13,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin3",
+    "id": 13,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 14,
+    "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin4",
+    "id": 14,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 15,
+    "name": "CCQEXSecCorr_SBN_v3_CCQEXSecCorr",
+    "id": 15,
+    "values": [
+      1.0
+    ]
+  },
+  {
+    "index": 16,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_AhtBY",
+    "id": 16,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 17,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_BhtBY",
+    "id": 17,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 18,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_CV1uBY",
+    "id": 18,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 19,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_CV2uBY",
+    "id": 19,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 20,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_EtaNCEL",
+    "id": 20,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 21,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrAbs_N",
+    "id": 21,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 22,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrAbs_pi",
+    "id": 22,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 23,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrCEx_N",
+    "id": 23,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 24,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrCEx_pi",
+    "id": 24,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 25,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrInel_N",
+    "id": 25,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 26,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrInel_pi",
+    "id": 26,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 27,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrPiProd_N",
+    "id": 27,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 28,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FrPiProd_pi",
+    "id": 28,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 29,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MFP_N",
+    "id": 29,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 30,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MFP_pi",
+    "id": 30,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 31,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MaCCRES",
+    "id": 31,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 32,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MaNCEL",
+    "id": 32,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 33,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MaNCRES",
+    "id": 33,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 34,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MvCCRES",
+    "id": 34,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 35,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_MvNCRES",
+    "id": 35,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 36,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnCC1pi",
+    "id": 36,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 37,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnCC2pi",
+    "id": 37,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 38,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnNC1pi",
+    "id": 38,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 39,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnNC2pi",
+    "id": 39,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 40,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpCC1pi",
+    "id": 40,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 41,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpCC2pi",
+    "id": 41,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 42,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpNC1pi",
+    "id": 42,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 43,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpNC2pi",
+    "id": 43,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 44,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnCC1pi",
+    "id": 44,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 45,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnCC2pi",
+    "id": 45,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 46,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnNC1pi",
+    "id": 46,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 47,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnNC2pi",
+    "id": 47,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 48,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpCC1pi",
+    "id": 48,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 49,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpCC2pi",
+    "id": 49,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 50,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpNC1pi",
+    "id": 50,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 51,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpNC2pi",
+    "id": 51,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 52,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_RDecBR1eta",
+    "id": 52,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 53,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_RDecBR1gamma",
+    "id": 53,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 54,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_Theta_Delta2Npi",
+    "id": 54,
+    "values": [
+      1.0
+    ]
+  },
+  {
+    "index": 55,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_VecFFCCQEshape",
+    "id": 55,
+    "values": [
+      1.0
+    ]
+  },
+  {
+    "index": 56,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA1CCQE",
+    "id": 56,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 57,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA2CCQE",
+    "id": 57,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 58,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA3CCQE",
+    "id": 58,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 59,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA4CCQE",
+    "id": 59,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 60,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_DecayAngMECVariationResponse",
+    "id": 62,
+    "values": [
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0
+    ]
+  },
+  {
+    "index": 61,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_EnergyDependence_CCMEC",
+    "id": 63,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 62,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FracDelta_CCMEC",
+    "id": 64,
+    "values": [
+      -1.0,
+      1.0,
+      -2.0,
+      2.0,
+      -3.0,
+      3.0
+    ]
+  },
+  {
+    "index": 63,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_FracPN_CCMEC",
+    "id": 65,
+    "values": [
+      -1.0,
+      1.0,
+      -2.0,
+      2.0,
+      -3.0,
+      3.0
+    ]
+  },
+  {
+    "index": 64,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_XSecShape_CCMEC",
+    "id": 66,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 65,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_XSecShape_CCMEC_Empirical",
+    "id": 67,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 66,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_XSecShape_CCMEC_Martini",
+    "id": 68,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 67,
+    "name": "GENIEReWeight_ICARUS_v2_multisigma_Fakedial",
+    "id": 69,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 68,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin0",
+    "id": 86,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 69,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin1",
+    "id": 87,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 70,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin2",
+    "id": 88,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 71,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin3",
+    "id": 89,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 72,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin0",
+    "id": 90,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 73,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin1",
+    "id": 91,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 74,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin2",
+    "id": 92,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 75,
+    "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin3",
+    "id": 93,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 76,
+    "name": "MiscInteractionSysts_DUNE_TDR_FakeData_C12ToAr40_2p2hScaling_nu",
+    "id": 94,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 77,
+    "name": "MiscInteractionSysts_DUNE_TDR_FakeData_C12ToAr40_2p2hScaling_nubar",
+    "id": 95,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 78,
+    "name": "MiscInteractionSysts_DUNE_TDR_FakeData_nuenuebar_xsec_ratio",
+    "id": 96,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 79,
+    "name": "MiscInteractionSysts_DUNE_TDR_FakeData_nuenumu_xsec_ratio",
+    "id": 97,
+    "values": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "index": 80,
+    "name": "PionAbsWeighter_SBN_v3_QuasiDeuteronFraction",
+    "id": 98,
+    "values": [
+      -3.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      3.0
+    ]
+  },
+  {
+    "index": 81,
+    "name": "QEInterference_SBN_v3_QEIntf_dial_0",
+    "id": 99,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 82,
+    "name": "QEInterference_SBN_v3_QEIntf_dial_1",
+    "id": 100,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 83,
+    "name": "QEInterference_SBN_v3_QEIntf_dial_2",
+    "id": 101,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 84,
+    "name": "QEInterference_SBN_v3_QEIntf_dial_3",
+    "id": 102,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 85,
+    "name": "QEInterference_SBN_v3_QEIntf_dial_4",
+    "id": 103,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 86,
+    "name": "QEInterference_SBN_v3_QEIntf_dial_5",
+    "id": 104,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0
+    ]
+  },
+  {
+    "index": 87,
+    "name": "ResIso_ResIso_ResonanceIsolation_MaRes_ResCode0",
+    "id": 105,
+    "values": [
+      -1.0,
+      1.0,
+      -2.0,
+      2.0,
+      -3.0,
+      3.0
+    ]
+  },
+  {
+    "index": 88,
+    "name": "ResIso_ResIso_ResonanceIsolation_MaRes_ResCode1",
+    "id": 106,
+    "values": [
+      -1.0,
+      1.0,
+      -2.0,
+      2.0,
+      -3.0,
+      3.0
+    ]
+  },
+  {
+    "index": 89,
+    "name": "ResIso_ResIso_ResonanceIsolation_MvRes_ResCode0",
+    "id": 107,
+    "values": [
+      -1.0,
+      1.0,
+      -2.0,
+      2.0,
+      -3.0,
+      3.0
+    ]
+  },
+  {
+    "index": 90,
+    "name": "ResIso_ResIso_ResonanceIsolation_MvRes_ResCode1",
+    "id": 108,
+    "values": [
+      -1.0,
+      1.0,
+      -2.0,
+      2.0,
+      -3.0,
+      3.0
+    ]
+  },
+  {
+    "index": 91,
+    "name": "WSReweight_v1_nucleus_radius",
+    "id": 109,
+    "values": [
+      2.5,
+      3.0,
+      3.5299999713897705,
+      4.0,
+      4.5
+    ]
+  },
+  {
+    "index": 92,
+    "name": "WSReweight_v1_surface_thickness",
+    "id": 110,
+    "values": [
+      0.44999998807907104,
+      0.5,
+      0.5400000214576721,
+      0.5899999737739563,
+      0.6399999856948853
+    ]
+  },
+  {
+    "index": 93,
+    "name": "ZExpPCAWeighter_SBN_v3_Deut_b1",
+    "id": 111,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 94,
+    "name": "ZExpPCAWeighter_SBN_v3_Deut_b2",
+    "id": 112,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 95,
+    "name": "ZExpPCAWeighter_SBN_v3_Deut_b3",
+    "id": 113,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 96,
+    "name": "ZExpPCAWeighter_SBN_v3_Deut_b4",
+    "id": 114,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 97,
+    "name": "ZExpPCAWeighter_SBN_v3_MvA_b1",
+    "id": 115,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 98,
+    "name": "ZExpPCAWeighter_SBN_v3_MvA_b2",
+    "id": 116,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 99,
+    "name": "ZExpPCAWeighter_SBN_v3_MvA_b3",
+    "id": 117,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  },
+  {
+    "index": 100,
+    "name": "ZExpPCAWeighter_SBN_v3_MvA_b4",
+    "id": 118,
+    "values": [
+      1.0,
+      -1.0,
+      2.0,
+      -2.0,
+      3.0,
+      -3.0,
+      0.0
+    ]
+  }
+]

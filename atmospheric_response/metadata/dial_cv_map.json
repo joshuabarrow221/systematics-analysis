@@ -1,0 +1,3123 @@
+{
+  "schema_version": 1,
+  "source_fcl": "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl",
+  "production_warning": "All 101 observed headers match this candidate FCL, but cafnusyst_source identifies a merged AtmInputs_decaf_v2 + AtmXsecSplines_v2 chain whose exact producer code is not pinned. Matching grids do not establish CV-response normalization.",
+  "response_warning": "This map defines coordinates only. It does not authorize multiplying all central responses or treating NaN xsec_cvwgt as unity.",
+  "records": [
+    {
+      "index": 0,
+      "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin0",
+      "id": 0,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L11"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 1,
+      "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin1",
+      "id": 1,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L25"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 2,
+      "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin2",
+      "id": 2,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L39"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 3,
+      "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin3",
+      "id": 3,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L53"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 4,
+      "name": "CCQETemplateReweight_SBN_v3_HFToCRPA_q0bin4",
+      "id": 4,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L67"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 5,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin0",
+      "id": 5,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L120"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 6,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin1",
+      "id": 6,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L134"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 7,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin2",
+      "id": 7,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L148"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 8,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin3",
+      "id": 8,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L162"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 9,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToHF_q0bin4",
+      "id": 9,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L176"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 10,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin0",
+      "id": 10,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L229"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 11,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin1",
+      "id": 11,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L243"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 12,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin2",
+      "id": 12,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L257"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 13,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin3",
+      "id": 13,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L271"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 14,
+      "name": "CCQETemplateReweight_SBN_v3_LFGToSF_q0bin4",
+      "id": 14,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L285"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 15,
+      "name": "CCQEXSecCorr_SBN_v3_CCQEXSecCorr",
+      "id": 15,
+      "values": [
+        1.0
+      ],
+      "cv_coordinate": 1.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 1.0,
+      "reference_index": 0,
+      "isCorrection": true,
+      "kind": "fixed_correction",
+      "coordinate_label": "fixed correction coordinate (no uncertainty scan)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L330"
+      ],
+      "notes": [
+        "Stored singleton response may be CV-normalized; its value alone does not establish the original correction factor."
+      ]
+    },
+    {
+      "index": 16,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_AhtBY",
+      "id": 16,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L421"
+      ],
+      "notes": []
+    },
+    {
+      "index": 17,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_BhtBY",
+      "id": 17,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L435"
+      ],
+      "notes": []
+    },
+    {
+      "index": 18,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_CV1uBY",
+      "id": 18,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L449"
+      ],
+      "notes": []
+    },
+    {
+      "index": 19,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_CV2uBY",
+      "id": 19,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L463"
+      ],
+      "notes": []
+    },
+    {
+      "index": 20,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_EtaNCEL",
+      "id": 20,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L477"
+      ],
+      "notes": []
+    },
+    {
+      "index": 21,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrAbs_N",
+      "id": 21,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L491"
+      ],
+      "notes": []
+    },
+    {
+      "index": 22,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrAbs_pi",
+      "id": 22,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L505"
+      ],
+      "notes": []
+    },
+    {
+      "index": 23,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrCEx_N",
+      "id": 23,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L519"
+      ],
+      "notes": []
+    },
+    {
+      "index": 24,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrCEx_pi",
+      "id": 24,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L533"
+      ],
+      "notes": []
+    },
+    {
+      "index": 25,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrInel_N",
+      "id": 25,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L547"
+      ],
+      "notes": []
+    },
+    {
+      "index": 26,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrInel_pi",
+      "id": 26,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L561"
+      ],
+      "notes": []
+    },
+    {
+      "index": 27,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrPiProd_N",
+      "id": 27,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L575"
+      ],
+      "notes": []
+    },
+    {
+      "index": 28,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FrPiProd_pi",
+      "id": 28,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L589"
+      ],
+      "notes": []
+    },
+    {
+      "index": 29,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MFP_N",
+      "id": 29,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L603"
+      ],
+      "notes": []
+    },
+    {
+      "index": 30,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MFP_pi",
+      "id": 30,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L617"
+      ],
+      "notes": []
+    },
+    {
+      "index": 31,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MaCCRES",
+      "id": 31,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L631"
+      ],
+      "notes": []
+    },
+    {
+      "index": 32,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MaNCEL",
+      "id": 32,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L645"
+      ],
+      "notes": []
+    },
+    {
+      "index": 33,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MaNCRES",
+      "id": 33,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L659"
+      ],
+      "notes": []
+    },
+    {
+      "index": 34,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MvCCRES",
+      "id": 34,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L673"
+      ],
+      "notes": []
+    },
+    {
+      "index": 35,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_MvNCRES",
+      "id": 35,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L687"
+      ],
+      "notes": []
+    },
+    {
+      "index": 36,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnCC1pi",
+      "id": 36,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L701"
+      ],
+      "notes": []
+    },
+    {
+      "index": 37,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnCC2pi",
+      "id": 37,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L715"
+      ],
+      "notes": []
+    },
+    {
+      "index": 38,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnNC1pi",
+      "id": 38,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L729"
+      ],
+      "notes": []
+    },
+    {
+      "index": 39,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarnNC2pi",
+      "id": 39,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L743"
+      ],
+      "notes": []
+    },
+    {
+      "index": 40,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpCC1pi",
+      "id": 40,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L757"
+      ],
+      "notes": []
+    },
+    {
+      "index": 41,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpCC2pi",
+      "id": 41,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L771"
+      ],
+      "notes": []
+    },
+    {
+      "index": 42,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpNC1pi",
+      "id": 42,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L785"
+      ],
+      "notes": []
+    },
+    {
+      "index": 43,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvbarpNC2pi",
+      "id": 43,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L799"
+      ],
+      "notes": []
+    },
+    {
+      "index": 44,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnCC1pi",
+      "id": 44,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L813"
+      ],
+      "notes": []
+    },
+    {
+      "index": 45,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnCC2pi",
+      "id": 45,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L827"
+      ],
+      "notes": []
+    },
+    {
+      "index": 46,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnNC1pi",
+      "id": 46,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L841"
+      ],
+      "notes": []
+    },
+    {
+      "index": 47,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvnNC2pi",
+      "id": 47,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L855"
+      ],
+      "notes": []
+    },
+    {
+      "index": 48,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpCC1pi",
+      "id": 48,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L869"
+      ],
+      "notes": []
+    },
+    {
+      "index": 49,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpCC2pi",
+      "id": 49,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L883"
+      ],
+      "notes": []
+    },
+    {
+      "index": 50,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpNC1pi",
+      "id": 50,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L897"
+      ],
+      "notes": []
+    },
+    {
+      "index": 51,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_NonRESBGvpNC2pi",
+      "id": 51,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L911"
+      ],
+      "notes": []
+    },
+    {
+      "index": 52,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_RDecBR1eta",
+      "id": 52,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L925"
+      ],
+      "notes": []
+    },
+    {
+      "index": 53,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_RDecBR1gamma",
+      "id": 53,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L939"
+      ],
+      "notes": []
+    },
+    {
+      "index": 54,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_Theta_Delta2Npi",
+      "id": 54,
+      "values": [
+        1.0
+      ],
+      "cv_coordinate": 1.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 1.0,
+      "reference_index": 0,
+      "isCorrection": true,
+      "kind": "fixed_correction",
+      "coordinate_label": "fixed correction coordinate (no uncertainty scan)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L953"
+      ],
+      "notes": [
+        "Stored singleton response may be CV-normalized; its value alone does not establish the original correction factor."
+      ]
+    },
+    {
+      "index": 55,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_VecFFCCQEshape",
+      "id": 55,
+      "values": [
+        1.0
+      ],
+      "cv_coordinate": 1.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 1.0,
+      "reference_index": 0,
+      "isCorrection": true,
+      "kind": "fixed_correction",
+      "coordinate_label": "fixed correction coordinate (no uncertainty scan)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L959"
+      ],
+      "notes": [
+        "Stored singleton response may be CV-normalized; its value alone does not establish the original correction factor."
+      ]
+    },
+    {
+      "index": 56,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA1CCQE",
+      "id": 56,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L965"
+      ],
+      "notes": []
+    },
+    {
+      "index": 57,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA2CCQE",
+      "id": 57,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L979"
+      ],
+      "notes": []
+    },
+    {
+      "index": 58,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA3CCQE",
+      "id": 58,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L993"
+      ],
+      "notes": []
+    },
+    {
+      "index": 59,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_ZExpA4CCQE",
+      "id": 59,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1007"
+      ],
+      "notes": []
+    },
+    {
+      "index": 60,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_DecayAngMECVariationResponse",
+      "id": 62,
+      "values": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        17.0,
+        18.0,
+        19.0,
+        20.0,
+        21.0,
+        22.0,
+        23.0,
+        24.0
+      ],
+      "cv_coordinate": null,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "coupled_categorical_scenarios",
+      "coordinate_label": "scenario index (not sigma)",
+      "nominal_definition": "CV is not declared for this response header; scenario 0 is an explicit reference only",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1051"
+      ],
+      "notes": [
+        "Scenario 0 = (DecayAng2MEC=1, DecayAngMEC=0). Dependent headers declare central values (0,0), which is absent from the 25 scenario grid. Do not label scenario 0 as a demonstrated CV."
+      ],
+      "scenario_coordinates": [
+        {
+          "index": 0,
+          "DecayAng2MEC": 1.0,
+          "DecayAngMEC": 0.0
+        },
+        {
+          "index": 1,
+          "DecayAng2MEC": 1.5,
+          "DecayAngMEC": 0.0
+        },
+        {
+          "index": 2,
+          "DecayAng2MEC": 0.75,
+          "DecayAngMEC": 0.0
+        },
+        {
+          "index": 3,
+          "DecayAng2MEC": 2.0,
+          "DecayAngMEC": 0.0
+        },
+        {
+          "index": 4,
+          "DecayAng2MEC": 0.5,
+          "DecayAngMEC": 0.0
+        },
+        {
+          "index": 5,
+          "DecayAng2MEC": 1.0,
+          "DecayAngMEC": 0.5
+        },
+        {
+          "index": 6,
+          "DecayAng2MEC": 1.5,
+          "DecayAngMEC": 0.5
+        },
+        {
+          "index": 7,
+          "DecayAng2MEC": 0.75,
+          "DecayAngMEC": 0.5
+        },
+        {
+          "index": 8,
+          "DecayAng2MEC": 2.0,
+          "DecayAngMEC": 0.5
+        },
+        {
+          "index": 9,
+          "DecayAng2MEC": 0.5,
+          "DecayAngMEC": 0.5
+        },
+        {
+          "index": 10,
+          "DecayAng2MEC": 1.0,
+          "DecayAngMEC": -0.5
+        },
+        {
+          "index": 11,
+          "DecayAng2MEC": 1.5,
+          "DecayAngMEC": -0.5
+        },
+        {
+          "index": 12,
+          "DecayAng2MEC": 0.75,
+          "DecayAngMEC": -0.5
+        },
+        {
+          "index": 13,
+          "DecayAng2MEC": 2.0,
+          "DecayAngMEC": -0.5
+        },
+        {
+          "index": 14,
+          "DecayAng2MEC": 0.5,
+          "DecayAngMEC": -0.5
+        },
+        {
+          "index": 15,
+          "DecayAng2MEC": 1.0,
+          "DecayAngMEC": 1.0
+        },
+        {
+          "index": 16,
+          "DecayAng2MEC": 1.5,
+          "DecayAngMEC": 1.0
+        },
+        {
+          "index": 17,
+          "DecayAng2MEC": 0.75,
+          "DecayAngMEC": 1.0
+        },
+        {
+          "index": 18,
+          "DecayAng2MEC": 2.0,
+          "DecayAngMEC": 1.0
+        },
+        {
+          "index": 19,
+          "DecayAng2MEC": 0.5,
+          "DecayAngMEC": 1.0
+        },
+        {
+          "index": 20,
+          "DecayAng2MEC": 1.0,
+          "DecayAngMEC": -1.0
+        },
+        {
+          "index": 21,
+          "DecayAng2MEC": 1.5,
+          "DecayAngMEC": -1.0
+        },
+        {
+          "index": 22,
+          "DecayAng2MEC": 0.75,
+          "DecayAngMEC": -1.0
+        },
+        {
+          "index": 23,
+          "DecayAng2MEC": 2.0,
+          "DecayAngMEC": -1.0
+        },
+        {
+          "index": 24,
+          "DecayAng2MEC": 0.5,
+          "DecayAngMEC": -1.0
+        }
+      ],
+      "declared_dependent_cv": {
+        "DecayAng2MEC": 0.0,
+        "DecayAngMEC": 0.0
+      }
+    },
+    {
+      "index": 61,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_EnergyDependence_CCMEC",
+      "id": 63,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1059"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 62,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FracDelta_CCMEC",
+      "id": 64,
+      "values": [
+        -1.0,
+        1.0,
+        -2.0,
+        2.0,
+        -3.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1069"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 63,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_FracPN_CCMEC",
+      "id": 65,
+      "values": [
+        -1.0,
+        1.0,
+        -2.0,
+        2.0,
+        -3.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1083"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 64,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_XSecShape_CCMEC",
+      "id": 66,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1097"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 65,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_XSecShape_CCMEC_Empirical",
+      "id": 67,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1107"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 66,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_XSecShape_CCMEC_Martini",
+      "id": 68,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1117"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 67,
+      "name": "GENIEReWeight_ICARUS_v2_multisigma_Fakedial",
+      "id": 69,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1127"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 68,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin0",
+      "id": 86,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1210"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 69,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin1",
+      "id": 87,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1224"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 70,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin2",
+      "id": 88,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1238"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 71,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToMar_MECResponse_q0bin3",
+      "id": 89,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1252"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 72,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin0",
+      "id": 90,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1352"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 73,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin1",
+      "id": 91,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1366"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 74,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin2",
+      "id": 92,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1380"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 75,
+      "name": "MECq0q3InterpWeighting_SBN_v3_SuSAToVal_MECResponse_q0bin3",
+      "id": 93,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1394"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 76,
+      "name": "MiscInteractionSysts_DUNE_TDR_FakeData_C12ToAr40_2p2hScaling_nu",
+      "id": 94,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1494"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 77,
+      "name": "MiscInteractionSysts_DUNE_TDR_FakeData_C12ToAr40_2p2hScaling_nubar",
+      "id": 95,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 0,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 0,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1503"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 78,
+      "name": "MiscInteractionSysts_DUNE_TDR_FakeData_nuenuebar_xsec_ratio",
+      "id": 96,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 1.0,
+      "cv_index": 1,
+      "cv_is_stored": true,
+      "reference_coordinate": 1.0,
+      "reference_index": 1,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1513"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 79,
+      "name": "MiscInteractionSysts_DUNE_TDR_FakeData_nuenumu_xsec_ratio",
+      "id": 97,
+      "values": [
+        0.0,
+        1.0
+      ],
+      "cv_coordinate": 1.0,
+      "cv_index": 1,
+      "cv_is_stored": true,
+      "reference_coordinate": 1.0,
+      "reference_index": 1,
+      "isCorrection": false,
+      "kind": "two_point_response",
+      "coordinate_label": "configured response coordinate (0 or 1)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1522"
+      ],
+      "notes": [
+        "Two stored alternatives alone do not establish a Gaussian +/-1 sigma interpretation."
+      ]
+    },
+    {
+      "index": 80,
+      "name": "PionAbsWeighter_SBN_v3_QuasiDeuteronFraction",
+      "id": 98,
+      "values": [
+        -3.0,
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 3,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 3,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: ScalableErf(0)=1 and compensating MN weight=1; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1544",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/PionAbsWeighter_tool.cc#L397-L420"
+      ],
+      "notes": []
+    },
+    {
+      "index": 81,
+      "name": "QEInterference_SBN_v3_QEIntf_dial_0",
+      "id": 99,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: max(0,(1-twk)+twk*raw_response); FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1573",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/QEInterference_tool.cc#L195-L202"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 82,
+      "name": "QEInterference_SBN_v3_QEIntf_dial_1",
+      "id": 100,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: max(0,(1-twk)+twk*raw_response); FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1586",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/QEInterference_tool.cc#L195-L202"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 83,
+      "name": "QEInterference_SBN_v3_QEIntf_dial_2",
+      "id": 101,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: max(0,(1-twk)+twk*raw_response); FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1599",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/QEInterference_tool.cc#L195-L202"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 84,
+      "name": "QEInterference_SBN_v3_QEIntf_dial_3",
+      "id": 102,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: max(0,(1-twk)+twk*raw_response); FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1612",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/QEInterference_tool.cc#L195-L202"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 85,
+      "name": "QEInterference_SBN_v3_QEIntf_dial_4",
+      "id": 103,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: max(0,(1-twk)+twk*raw_response); FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1625",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/QEInterference_tool.cc#L195-L202"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 86,
+      "name": "QEInterference_SBN_v3_QEIntf_dial_5",
+      "id": 104,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "Provider gives unity at zero: max(0,(1-twk)+twk*raw_response); FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1638",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/QEInterference_tool.cc#L195-L202"
+      ],
+      "notes": [
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 87,
+      "name": "ResIso_ResIso_ResonanceIsolation_MaRes_ResCode0",
+      "id": 105,
+      "values": [
+        -1.0,
+        1.0,
+        -2.0,
+        2.0,
+        -3.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "MaCh3 configured PreFitValue=0 for these GENIE variation dials; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1709",
+        "https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/CovObjs/xsec_covariance_Atmospherics.yaml#L1638-L1708"
+      ],
+      "notes": [
+        "Zero is the fitter nominal reference; the production header itself does not declare its central coordinate.",
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 88,
+      "name": "ResIso_ResIso_ResonanceIsolation_MaRes_ResCode1",
+      "id": 106,
+      "values": [
+        -1.0,
+        1.0,
+        -2.0,
+        2.0,
+        -3.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "MaCh3 configured PreFitValue=0 for these GENIE variation dials; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1722",
+        "https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/CovObjs/xsec_covariance_Atmospherics.yaml#L1638-L1708"
+      ],
+      "notes": [
+        "Zero is the fitter nominal reference; the production header itself does not declare its central coordinate.",
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 89,
+      "name": "ResIso_ResIso_ResonanceIsolation_MvRes_ResCode0",
+      "id": 107,
+      "values": [
+        -1.0,
+        1.0,
+        -2.0,
+        2.0,
+        -3.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "MaCh3 configured PreFitValue=0 for these GENIE variation dials; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1735",
+        "https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/CovObjs/xsec_covariance_Atmospherics.yaml#L1638-L1708"
+      ],
+      "notes": [
+        "Zero is the fitter nominal reference; the production header itself does not declare its central coordinate.",
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 90,
+      "name": "ResIso_ResIso_ResonanceIsolation_MvRes_ResCode1",
+      "id": 108,
+      "values": [
+        -1.0,
+        1.0,
+        -2.0,
+        2.0,
+        -3.0,
+        3.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": null,
+      "cv_is_stored": false,
+      "reference_coordinate": 0.0,
+      "reference_index": null,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "dial coordinate (configured units)",
+      "nominal_definition": "MaCh3 configured PreFitValue=0 for these GENIE variation dials; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1748",
+        "https://github.com/pgranger23/MaCh3_DUNE/blob/3eb43836f8bffc7060e6812807579ac46ca6d0a7/Configs/CovObjs/xsec_covariance_Atmospherics.yaml#L1638-L1708"
+      ],
+      "notes": [
+        "Zero is the fitter nominal reference; the production header itself does not declare its central coordinate.",
+        "No stored CV knot. MaCh3 inserts a unity knot at zero if the grid brackets zero; this is a fitter convention, not a measured response or proof that the complete CV correction is unity."
+      ]
+    },
+    {
+      "index": 91,
+      "name": "WSReweight_v1_nucleus_radius",
+      "id": 109,
+      "values": [
+        2.5,
+        3.0,
+        3.5299999713897705,
+        4.0,
+        4.5
+      ],
+      "cv_coordinate": 3.53,
+      "cv_index": 2,
+      "cv_is_stored": true,
+      "reference_coordinate": 3.53,
+      "reference_index": 2,
+      "isCorrection": false,
+      "kind": "physical_coordinate",
+      "coordinate_label": "nucleus radius (physical coordinate)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1775"
+      ],
+      "notes": [
+        "FCL oneSigmaShifts [3,4] is explicitly marked placeholder; do not convert grid points to sigma using it."
+      ]
+    },
+    {
+      "index": 92,
+      "name": "WSReweight_v1_surface_thickness",
+      "id": 110,
+      "values": [
+        0.44999998807907104,
+        0.5,
+        0.5400000214576721,
+        0.5899999737739563,
+        0.6399999856948853
+      ],
+      "cv_coordinate": 0.54,
+      "cv_index": 2,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.54,
+      "reference_index": 2,
+      "isCorrection": false,
+      "kind": "physical_coordinate",
+      "coordinate_label": "surface thickness (physical coordinate)",
+      "nominal_definition": "explicit candidate FCL centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1789"
+      ],
+      "notes": [
+        "Use physical CV 0.54 rather than zero; do not label the five physical coordinates as integer sigma shifts."
+      ]
+    },
+    {
+      "index": 93,
+      "name": "ZExpPCAWeighter_SBN_v3_Deut_b1",
+      "id": 111,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1817",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 94,
+      "name": "ZExpPCAWeighter_SBN_v3_Deut_b2",
+      "id": 112,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1831",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 95,
+      "name": "ZExpPCAWeighter_SBN_v3_Deut_b3",
+      "id": 113,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1845",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 96,
+      "name": "ZExpPCAWeighter_SBN_v3_Deut_b4",
+      "id": 114,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1859",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 97,
+      "name": "ZExpPCAWeighter_SBN_v3_MvA_b1",
+      "id": 115,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1889",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 98,
+      "name": "ZExpPCAWeighter_SBN_v3_MvA_b2",
+      "id": 116,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1903",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 99,
+      "name": "ZExpPCAWeighter_SBN_v3_MvA_b3",
+      "id": 117,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1917",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    },
+    {
+      "index": 100,
+      "name": "ZExpPCAWeighter_SBN_v3_MvA_b4",
+      "id": 118,
+      "values": [
+        1.0,
+        -1.0,
+        2.0,
+        -2.0,
+        3.0,
+        -3.0,
+        0.0
+      ],
+      "cv_coordinate": 0.0,
+      "cv_index": 6,
+      "cv_is_stored": true,
+      "reference_coordinate": 0.0,
+      "reference_index": 6,
+      "isCorrection": false,
+      "kind": "continuous_dial_coordinate",
+      "coordinate_label": "PCA coefficient variation (standard deviations)",
+      "nominal_definition": "Zero PCA displacement in provider construction; FCL omits centralParamValue",
+      "candidate_fcl_grid_matches": true,
+      "source_confidence": "CERTAIN: candidate FCL name, id and ordered grid match observed header; actual production source commit remains unpinned",
+      "sources": [
+        "https://github.com/pgranger23/cafnusyst/blob/5f456eca5f3d7b636420708cefaa55bfaac73e05/justin/fcl/systs_atmospherics_v2.fcl#L1931",
+        "https://github.com/pgranger23/nusystematics/blob/14c06d1e2dc3622b0511f51a91ffdec4e0754cd2/src/nusystematics/systproviders/ZExpPCAWeighter_tool.cc#L230-L253"
+      ],
+      "notes": [
+        "All four b scans in one provider share the same zero-displacement model; nonunity zero responses must not be multiplied four times as independent CV corrections."
+      ]
+    }
+  ]
+}

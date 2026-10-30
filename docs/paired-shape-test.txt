@@ -1,0 +1,185 @@
+Paired Monte Carlo zenith-shape diagnostic
+Prepared 2026-10-30; source/module/test documentation
+
+What the test answers
+[CERTAIN] It tests whether the selected, weighted, marginal zenith histograms
+are proportional over the displayed bin range. It does not test fundamental
+rotational symmetry, and a p-value is not the probability that a curve is flat.
+NuSystematics endpoints are deterministic functions of each event. The random
+quantity in this diagnostic is the finite Monte Carlo sample, not a new draw
+from the dial each time a curve is drawn.
+
+For an illustrative selected rate,
+  N_theta(z) = integral dE dy Phi(E,z) sigma(E,y;theta) epsilon(E,y,z).
+Even if sigma has no absolute incoming-angle argument, an energy/y-dependent
+response can change the normalized z spectrum because flux and acceptance
+correlate z with those variables. The included synthetic test demonstrates
+this with an energy-only response. Such a marginal change is not automatically
+statistical noise or evidence that the nuclear model depends on zenith.
+
+Why ordinary independent-histogram chi-square is inappropriate
+For each selected event i, use varied weight a_i and reference weight b_i.
+Both belong to the SAME event and zenith bin. The reference includes its actual
+stored central response when available; it is not always the external baseline.
+Treating the two spectra as independent discards their covariance. In the
+limiting case a_i=b_i, the difference has exactly zero MC fluctuation, whereas
+the independent-histogram prescription would invent an uncertainty.
+
+Inputs and sufficient moments
+For visible angle bin j accumulate:
+  A_j  = sum a_i              B_j  = sum b_i
+  A2_j = sum a_i^2            B2_j = sum b_i^2
+  C_j  = sum a_i b_i.
+Also accumulate these direct moments for numerical stability near the CV:
+  Delta2_j = sum (a_i-b_i)^2
+  BDelta_j = sum b_i(a_i-b_i).
+The two direct moments avoid subtracting large nearly equal A2/B2/C terms.
+The same fixed event/observable mask must be used in every sum.
+
+Rate and shape ratios
+  k = sum A_j / sum B_j
+  ordinary ratio_j = A_j/B_j
+  shape ratio_j = (A_j/k)/B_j.
+Thus each varied spectrum is first normalized to the reference total, exactly
+as requested. The normalization is over the supplied visible bins. Zero
+reference bins have no defined ratio and are masked, not filled with unity.
+
+Covariance derivation (specific to this implementation)
+Model each MC event's bootstrap multiplicity as an independent Poisson(1)
+variable, using the SAME multiplicity for its a_i and b_i. Event weights and
+observables are held fixed within that resample. Let
+  D=A-kB,  p=B/sum B,
+  S_j=sum_(i in j) (a_i-k b_i)^2
+     =Delta2_j -2(k-1)BDelta_j +(k-1)^2 B2_j.
+The first-order influence of event i on D_j is
+  (1[event i in bin j]-p_j) (a_i-k b_i).
+Consequently
+  V=(I-p 1^T) diag(S) (I-1 p^T).
+The fitted normalization makes sum(D)=0 and V singular in its normalization
+direction. The statistic is D^T V^+ D, where + denotes the supported-subspace
+Moore-Penrose inverse. It has an asymptotic chi-square distribution under the
+proportional-shape null, with degrees of freedom equal to covariance rank.
+
+For all S_j>0 the implementation avoids an expensive dense inverse. Every
+preimage of D under I-p1^T is D+t p. Minimize
+  sum_j (D_j+t p_j)^2/S_j
+over t. This is algebraically equal to the pseudoinverse quadratic form and
+normally has n_populated_bins-1 degrees of freedom. When S_j=0, those rows
+instead constrain t; inconsistent support is explicitly unavailable. A
+comparison whose entire contrast variance vanishes has rank zero and no
+goodness-of-fit p-value. It is labelled proportional within numerical precision.
+
+The displayed ratio errors include both the shared-event covariance and the
+uncertainty in the fitted normalization. They use the delta method evaluated
+at the observed ratio, including denominator derivatives; they are not merely
+sqrt(A2)/B. See the commented (a-b,b) influence calculation in v2_statistics.py.
+
+Validity and interpretation
+- All test weights must be finite and nonnegative. Pass per-policy event
+  invalid/negative counts: positive bin totals alone do not prove that no
+  negative event weights contributed. Raw signed spectra remain separately
+  displayable, but this probability-shape test is unavailable for them.
+- A missing response can make the full-range normalization unknown. Do not
+  remove affected bins and silently claim a test on the full range.
+- Numerical-policy views test the weights AFTER the documented handling.
+  Raw invalid/negative flags still belong visibly beside those results. A
+  handled flat curve caused by replacing missing responses with unity is not
+  evidence that the missing physical responses were flat.
+- A variation populating reference-zero support gets no regular chi-square
+  p-value. Empty bins in both curves carry no information.
+- The default minimum effective count is20 in every active bin, checked in
+  both spectra using (sumw)^2/sumw2. When a bin fails, chi-square is retained as
+  a descriptive number but the p-value is withheld. The threshold is a
+  screening convention, not a theorem that every heavy-tailed residual is
+  Gaussian. Rare response tails need a paired-event bootstrap assessment.
+- Every reported p is asymptotic and unadjusted for many correlated dial,
+  containment, direction and binning comparisons. Do not interpret a few
+  small p-values in a large scan as a discovery of physical anisotropy.
+- A large p does not establish equivalence or absence of a practically
+  relevant effect. Inspect the actual ratios/effect sizes and MC precision.
+
+Optional energy-conditioned diagnostic
+energy_stratified_flatness accepts the same moments in a two-dimensional
+[true-energy-bin,zenith-bin] array. It fits a separate k_e in each energy
+stratum and sums the independent stratum chi-square values/degrees of freedom.
+No failing nonempty stratum is silently dropped from the global p-value.
+Completely empty strata are recorded; zero-rank proportional strata contribute
+no test degrees of freedom.
+
+It also returns a descriptive energy-standardized ratio:
+  (sum_e A_ez/k_e)/(sum_e B_ez).
+This forces the supplied binned energy mixture to match. It does NOT control
+within-bin energy differences, Q^2, y, interaction class or detector acceptance.
+It is a useful diagnostic for the user's premise, not a proof of the full
+conditional symmetry statement. Its projected ratio has no uncertainty band
+from this helper; use the per-stratum covariance to derive one if needed.
+For routine operation use a small set of well-populated energy/angle strata;
+fine display bins are not automatically suitable test strata.
+
+Interface for aggregation/viewer code
+  paired_shape_flatness(A,B,A2,B2,C,
+      sumw2_difference=Delta2, sumw_ref_difference=BDelta,
+      negative_events=..., nonfinite_events=..., min_effective_count=20)
+
+JSON-safe output fields:
+  status, statistic, ndof, p_value, notes,
+  ratio_shape, ratio_shape_se, ratio_rate, ratio_rate_se, rate_scale,
+  effective_bins, low_stat_bins, min_effective_count.
+Optional return_covariance=True adds difference and difference_covariance for
+small diagnostic calculations. Main production calculation is O(n_bins).
+No ROOT reading or event-selection decisions occur in the module.
+
+Source basis (primary sources; checked 2026-10-30)
+The paired normalization algebra above is explicitly derived here, not claimed
+as a quoted formula from an independent-histogram test.
+
+1. G. Bohm and G. Zech, Statistics of weighted Poisson events and its
+applications, NIM A748(2014)1-6; arXiv:1309.1287.
+https://arxiv.org/abs/1309.1287
+https://arxiv.org/pdf/1309.1287
+Provides the compound-Poisson weighted-sum framework and event-wise Poisson
+bootstrap. The present paired extension shares each Poisson multiplicity
+between the two weights, preserving their covariance.
+
+2. ROOT TH1 documentation, chi-square comparison of weighted histograms.
+https://root.cern.ch/doc/master/classTH1.html
+Documents sum-of-squared-weight variance estimates and large-sample weighted
+histogram tests. Its independent two-histogram formulas are not used here
+because the nominal and varied spectra reuse the same events.
+
+3. NIST Digital Library of Mathematical Functions, 8.8.6.
+https://dlmf.nist.gov/8.8.E6
+The incomplete-gamma recurrence supplies the integer-dof fallback tail.
+SciPy's regularized upper gamma implementation is preferred when installed:
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.gammaincc.html
+
+Validation completed
+Run from the repository: OPENBLAS_NUM_THREADS=1 python -m pytest tests/test_v2_statistics.py tests/test_v2_moments.py tests/test_v2_config.py -q
+Twenty-seven tests pass with system NumPy 1.26.4 and no SciPy requirement:
+twelve statistics, five sparse-moment and ten configuration tests.
+- Exact proportional event weights, including nonunity CVs, cancel with zero
+  rank; they are not assigned a fabricated p=1.
+- O(B) statistic equals a dense pseudoinverse calculation and is invariant
+  under global weight scales 1e-9,1,1e9 and relative varied/reference rate
+  scales between 1e-20 and 1e20 when supplied direct cross moments.
+- Zero-variance supported subspaces, missing/signed weights, reference-zero
+  bins, low statistics and near-CV 1e-8 responses have explicit checks.
+- 1,200 independent null MC samples give p<0.05 in 5.25% of trials; mean p=.4900.
+- 2,400 paired Poisson bootstrap replicas reproduce the analytic covariance
+  within 6.30% relative Frobenius distance, consistent with replica noise;
+  all ratio standard errors agree within 10%.
+- A deterministic energy-only response creates nonflat marginal zenith but
+  unit energy-standardized zenith ratio in the synthetic correlation example.
+- Incomplete energy strata do not silently receive a global p-value.
+- Tail fallback agrees with analytic df1/df2 forms and standard critical
+  values. The broad-grid comparison against SciPy 1.18.1 passed in the project
+  virtual environment (NumPy 2.5.4).
+- Sparse paired-moment accumulation equals direct dense event calculation
+  with a nonunity actual CV, omitted unity rows and masked events. Direct cross
+  products also preserve proportional responses at relative rates 1e-20/1e20. Direct
+  differences retain near-CV 1e-10 precision lost by A2+B2-2C subtraction.
+- Configuration checks preserve every user-supplied Miles edge (including
+  zero and 100 GeV), reject unsorted/duplicate/nonfinite bins, respect custom
+  profile overrides and keep unspecified ALL/NC Miles samples unavailable.
+  Nested profiles merge sample fields recursively; malformed inheritance,
+  numerical policies, conditional grids and unsupported physics modes fail early.

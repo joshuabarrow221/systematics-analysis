@@ -1,6 +1,6 @@
 [project]
 name = "systematics"
-version = "0.1.0"
+version = "0.2.0"
 description = "Tools to read and analyze neutrino cross-section systematic variations"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -17,8 +17,31 @@ dependencies = [
     "particle>=0.23.0",
     "ipykernel>=6.0.0",
     "ipywidgets>=8.0.0",
+    "plotly>=6.0.0",
 ]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0.0"]
+browser-test = ["playwright>=1.45"]
+
+[project.scripts]
+atmo-extract = "atmospheric_response.v2_extract:main"
+atmo-aggregate = "atmospheric_response.v2_aggregate:main"
+atmo-viewer = "atmospheric_response.build_interactive_v2:main"
+atmo-render = "atmospheric_response.render_canvases_v2:main"
+atmo-bins = "atmospheric_response.print_binning:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["atmospheric_response"]
+
+# Preserve the established notebook imports alongside the new package.
+[tool.hatch.build.targets.wheel.force-include]
+"systs.py" = "systs.py"
+"fhicl_parser.py" = "fhicl_parser.py"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

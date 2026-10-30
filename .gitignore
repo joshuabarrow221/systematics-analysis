@@ -38,3 +38,14 @@ Thumbs.db
 
 # Log files
 *.log
+
+# Generated atmospheric analysis products; keep source and small metadata only.
+outputs/
+cache/
+work/
+*.npz
+*.npy
+*.assets/
+dist/
+build/
+*.egg-info/
