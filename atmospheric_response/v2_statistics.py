@@ -15,6 +15,19 @@ Honda flux, energy, interaction composition and selection correlations can
 violate that null without an explicit incoming-angle dependence in a nuclear
 cross section. Rejection is not evidence of a reconstruction or physics bug.
 
+"Flatness" means that the VARIED/REFERENCE SHAPE RATIO is consistent with one,
+not that either angular spectrum is uniform. This module is our diagnostic,
+not a MaCh3 likelihood or a NuSystematics dial-sampling procedure. One call
+tests one stored dial coordinate/scenario against its reference, using all
+eligible visible angle bins. It does not combine different dial points.
+
+The sampling model is an analytic paired Poisson bootstrap: each MC event has
+one hypothetical Poisson(1) multiplicity shared by its two weights. No random
+resamples are generated in production. A first-order (delta-method) covariance
+and an asymptotic chi-square tail approximate what such resampling would do.
+This captures finite-MC precision conditional on the supplied weights; it does
+not include detector/data counting errors or priors on systematic parameters.
+
 Only NumPy is required. SciPy's survival function is used when installed; an
 integer-degree-of-freedom chi-square tail based on gamma recurrences is the
 fallback. All returned structures are JSON-safe (undefined numbers are None).
@@ -83,7 +96,13 @@ def _json_numbers(array: np.ndarray) -> list[float | None]:
 
 
 def _nonnegative_roundoff(value: np.ndarray, scale: np.ndarray) -> tuple[np.ndarray, bool]:
-    """Zero unresolved moment cancellation; reject materially negative variance."""
+    """Zero unresolved moment cancellation; reject materially negative variance.
+
+    ``scale`` bounds the magnitudes of the terms being added/subtracted, not
+    a physical variance floor. The 128-machine-epsilon tolerance only absorbs
+    floating-point cancellation; larger negative values indicate inconsistent
+    moments and must not be repaired into an apparently valid statistical test.
+    """
     tolerance = 128 * _EPS * np.maximum(scale, np.finfo(float).tiny)
     bad = np.any(value < -tolerance)
     return np.where(np.abs(value) <= tolerance, 0.0, np.maximum(value, 0.0)), bool(bad)
@@ -120,9 +139,31 @@ def paired_shape_flatness(
     responses need event-level bootstrap checking. p-values are asymptotic,
     unadjusted for the many correlated dial comparisons, and never a test of
     fundamental rotational symmetry.
+
+    The returned ``statistic`` is one whole-shape chi-square-like Wald number,
+    not a per-bin value. ``ndof`` is the supported covariance rank, usually
+    the number of populated reference bins minus one fitted normalization.
+    ``p_value`` is Pr(ChiSquare(ndof) >= statistic) under the proportional-shape
+    null and large-sample approximation. It is neither Pr(null is true) nor an
+    equivalence probability. A rank-zero self-comparison deliberately has
+    p_value=None rather than an invented p=1.
+
+    Undefined cases retain an explicit ``status`` and notes. Ratio standard
+    errors are returned for downstream CSV/diagnostics; the browser does not
+    currently draw them as uncertainty bands. ``return_covariance`` exposes
+    the unscaled residual D and covariance V for small independent checks;
+    normal production avoids allocating that dense matrix.
+
+    Output ``min_effective_count`` is the smallest OBSERVED effective count
+    across both spectra's active bins; ``effective_count_threshold`` records
+    the configured input threshold. They are distinct despite the input
+    argument sharing the former name.
     """
     arrays = [np.asarray(x, dtype=np.float64) for x in
               (sumw_var, sumw_ref, sumw2_var, sumw2_ref, sumw_cross)]
+    # Lower-case variables below are BIN SUMS, unlike event weights a_i/b_i in
+    # the derivation. Keeping the five moments aligned is essential: independent
+    # histogram variances A2+B2 would discard the same-event cross term C.
     a, b, a2, b2, cross = arrays
     if a.ndim != 1 or not len(a) or any(x.shape != a.shape for x in arrays):
         raise ValueError("All five moment arrays must be aligned nonempty vectors")
@@ -152,6 +193,10 @@ def paired_shape_flatness(
             result["ratio_rate_se"] = [None] * n
         return result
 
+    # These gates apply to the weights actually being tested. A caller can
+    # supply handled finite/nonnegative weights while separately exposing the
+    # raw-quality counts. Silently dropping a bad raw bin would change both the
+    # displayed-range normalization and the question posed by the test.
     if np.any(np.asarray(nonfinite_events) > 0) or not all(np.all(np.isfinite(x)) for x in arrays):
         return unavailable("unavailable_nonfinite", "A missing/nonfinite response makes the displayed-range normalization unknown.")
     if np.any(np.asarray(negative_events) > 0) or np.any(a < 0) or np.any(b < 0):
@@ -160,6 +205,9 @@ def paired_shape_flatness(
         return unavailable("invalid_moments", "Negative sum of squared weights")
     if np.any((a == 0) & (a2 != 0)) or np.any((b == 0) & (b2 != 0)):
         return unavailable("invalid_moments", "Zero nonnegative sum must have zero squared-weight sum")
+    # Cauchy-Schwarz requires C_j^2 <= A2_j*B2_j. The relative tolerance here
+    # and in the direct-moment checks below accounts for summation roundoff;
+    # these are consistency checks, not a relaxation of weight-sign handling.
     if np.any(cross < 0) or np.any(cross * cross > a2 * b2 * (1 + 1e-10) + np.finfo(float).tiny):
         return unavailable("invalid_moments", "Paired cross moments violate nonnegative-weight covariance bounds")
     at, bt = float(np.sum(a)), float(np.sum(b))
@@ -183,6 +231,9 @@ def paired_shape_flatness(
     ratio[supported] = a[supported] / b[supported] / k
     result["ratio_shape"] = _json_numbers(ratio)
     result["ratio_rate"] = _json_numbers(np.divide(a, b, out=np.full(n, np.nan), where=supported))
+    # Direct event differences keep tiny near-CV changes resolvable. The
+    # fallback identities are valid algebraically, but subtraction of nearly
+    # equal large second moments can erase their small contrast variance.
     if sumw2_difference is None:
         d2, bad = _nonnegative_roundoff(a2 + b2 - 2 * cross, a2 + b2 + 2 * np.abs(cross))
         bd = cross - b2
@@ -231,6 +282,13 @@ def paired_shape_flatness(
     # total-normalization fluctuations, evaluated at the observed spectra.
     # In the rescaled (a/k-b,b) frame the observed total-rate factor is one.
     # Its reference-weight coefficient outside bin j is consequently zero.
+    # For q_i=a_i/k-b_i, the ratio's influence on event i is
+    #   (-r_j/Btot + I_ij/B_j)*q_i
+    #     - I_ij*(A_j/k-B_j)/B_j^2 * b_i.
+    # Summing its square gives the inside/outside terms below, including the
+    # q_i*b_i cross moment bn. Bins share a fitted total normalization, so
+    # treating these returned per-bin standard errors as independent and
+    # summing ((ratio-1)/SE)^2 would NOT reproduce the global paired test.
     error = np.full(n, np.nan)
     rate_error = np.full(n, np.nan)
     jj = np.flatnonzero(supported)
@@ -264,6 +322,10 @@ def paired_shape_flatness(
     ss = s[active]
     result["effective_bins"] = len(indices)
     result["test_bins"] = indices.tolist()
+    # Effective counts diagnose concentration of weights, not actual events:
+    # Neff=(sum w)^2/sum(w^2). A bin with one dominant event can have large
+    # weighted yield but poor MC precision. Both paired spectra must pass the
+    # configured screen (20 by default); it cannot guarantee residual normality.
     eff_a = np.divide(a[active]**2, a2[active], out=np.zeros(len(p)), where=a2[active] > 0)
     eff_b = np.divide(b[active]**2, b2[active], out=np.zeros(len(p)), where=b2[active] > 0)
     result["min_effective_count"] = float(np.minimum(eff_a, eff_b).min()) if len(p) else 0.0
@@ -283,6 +345,8 @@ def paired_shape_flatness(
     if np.all(positive):
         # Any u with M*u=D equals D+t*p. Minimize its independent-bin
         # Gaussian norm; this equals the Moore-Penrose quadratic form.
+        # Projection removes the one fitted overall normalization. We do not
+        # count dial settings as degrees of freedom or numerically invert V.
         z, direction = d / np.sqrt(ss), p / np.sqrt(ss)
         z -= direction * (np.dot(z, direction) / np.dot(direction, direction))
         statistic = float(np.dot(z, z))
@@ -290,6 +354,8 @@ def paired_shape_flatness(
     else:
         # Zero-variance bins constrain the normalization nuisance t exactly.
         # Inconsistent constraints mean D lies outside covariance support.
+        # With at least one such constraint, rank equals the number of strictly
+        # positive residual-variance bins, rather than n_active-1 by assumption.
         constrained_t = -d[~positive] / p[~positive]
         t = float(constrained_t[0])
         if np.any(np.abs(d[~positive] + t * p[~positive]) > tol_d):
@@ -303,6 +369,9 @@ def paired_shape_flatness(
     if result["low_stat_bins"]:
         return unavailable("low_statistics", "At least one active bin fails the configured effective-count screen; statistic is descriptive and p-value is withheld.")
     result["status"] = "ok_asymptotic"
+    # The upper tail is small for a shape displacement large relative to its
+    # paired MC covariance. This is one unadjusted p for this stored dial point;
+    # the viewer's min/max across points is only a summary of separate tests.
     result["p_value"] = chi2_survival(statistic, ndof)
     if result["p_value"] == 0:
         result["notes"].append("The upper-tail probability underflows double precision; displayed zero means smaller than representable, not mathematically zero.")
@@ -316,6 +385,11 @@ def moments_from_events(bin_index, varied_weight, reference_weight, n_bins: int)
     The same event row contributes both weights and the cross moment. No
     histogram joining or matching by bin contents is statistically equivalent.
     Rows outside [0,n_bins) are excluded consistently from all seven moments.
+    Nonfinite rows cannot contribute finite arithmetic moments, but their
+    event count is returned so the test withholds its p-value rather than
+    pretending those events were absent. This small dense helper is used for
+    independent checks; production accumulates equivalent sparse moments in
+    v2_moments.py with the actual reference column.
     """
     index = np.asarray(bin_index)
     a, b = np.asarray(varied_weight, float), np.asarray(reference_weight, float)
@@ -356,6 +430,13 @@ def energy_stratified_flatness(
     residual within-bin energy, Q², interaction-class or acceptance effects.
     It is a descriptive ratio; this helper does not supply projected errors.
 
+    This is not the main viewer-summary p-value: the browser's expandable
+    per-point table/CSV labels it separately as energy-stratified. A new fitted
+    normalization in each stratum changes the null and its degrees of freedom.
+    Strata are disjoint in true energy under the Poisson-event sampling model;
+    their test statistics/ranks can therefore be added. The combined tail is
+    evaluated once at the summed statistic/rank, not by averaging p-values.
+
     Negative/nonfinite event counts, when present, are vectors of length n_E.
     The primary marginal diagnostic remains paired_shape_flatness; this
     optional cross-check answers a different, explicitly conditional question.
@@ -391,6 +472,9 @@ def energy_stratified_flatness(
     total_statistic = 0.0
     total_ndof = 0
     for e in range(ne):
+        # Empty strata contribute neither normalization nor test rank. A
+        # nonempty failing stratum is different: recording its index prevents
+        # selectively retaining only well-behaved intervals in a global claim.
         if all(np.all(x[e] == 0) for x in values) and neg[e] == 0 and bad[e] == 0:
             result["empty_strata"].append(e)
             result["strata"].append({"status": "empty_stratum", "statistic": None, "ndof": 0, "p_value": None})
@@ -418,6 +502,9 @@ def energy_stratified_flatness(
         return result
     result.update(statistic=total_statistic, ndof=total_ndof)
     if total_ndof == 0:
+        # Entirely empty input has no normalization; nonempty exactly
+        # proportional input has no stochastic shape contrast. Neither merits
+        # a manufactured global goodness-of-fit probability.
         result["status"] = "proportional_within_precision" if len(result["empty_strata"]) < ne else "unavailable_normalization"
     else:
         result.update(status="ok_asymptotic", p_value=chi2_survival(total_statistic, total_ndof))

@@ -154,6 +154,20 @@ class SparseResponseStudy:
         preserve: signed rates; any negative final event weight makes that
         profile bin undefined. clip_to_zero: final weights below zero are set
         to zero explicitly. Nonfinite responses always raise in both modes.
+
+        In the v2 app, make_policy has already applied the selected handling
+        and this method is called with preserve for BOTH views. Thus this
+        low-level negative_policy argument is not the viewer's Weight policy.
+        For a visible histogram bin k and dial point a, the saved rate is
+          H_k(a) = sum_{events i in bin k} b_i * r_i(a).
+        The corresponding MC second moment is sum_i (b_i*r_i(a))**2, with
+        explicit underflow/overflow slots. Counts are unchanged event counts,
+        not weighted yields. Unit-area normalization is a later display step.
+
+        Rows absent from the sparse input have r_i(a)=1 and remain in every
+        spectrum. Adding delta=b_i*(r_i(a)-1) to the common baseline therefore
+        gives the same rate as summing all final weights directly; sparsity
+        neither drops events nor divides responses by their stored CV.
         """
         rows, response = np.asarray(rows), np.asarray(responses)
         _require(rows.ndim == 1 and rows.dtype.kind in "iu", "Sparse event rows must be integers")
@@ -244,6 +258,11 @@ class SparseResponseStudy:
                 profile["positive_weight_events"][slot] = positive
                 profile["n_eff"][slot] = sw * sw / sw2 if sw2 > 0 and not negative else 0
                 if negative or positive == 0 or sw <= 0:
+                    # A signed histogram is algebraically meaningful, but a
+                    # probability CDF must be nondecreasing. One negative final
+                    # event weight invalidates Q16/Q84 for this energy group,
+                    # even if its total weight remains positive. No absolute
+                    # value or hidden positive-only subset is substituted.
                     if positive == 0 and not negative:
                         for key in ("sumw", "sumw2", "n_eff"):
                             profile[key][slot] = 0

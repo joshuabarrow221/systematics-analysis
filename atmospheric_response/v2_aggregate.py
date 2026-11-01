@@ -58,6 +58,15 @@ def close_map(array):
 
 
 def reference_index(record):
+    """Select a reference from reviewed metadata, never from array position.
+
+    A stored CV can have a nonzero coordinate and a non-unit event response.
+    A missing CV uses the separate unity-response baseline (None), not a
+    fabricated response column. Coupled categorical points instead have an
+    explicitly chosen reference scenario, which is not asserted to be a CV.
+    This choice defines histogram ratios and paired-test reference weights;
+    it does not multiply a second CV factor into each varied event weight.
+    """
     if record['kind'] == 'coupled_categorical_scenarios':
         return record['reference_index']
     return record['cv_index'] if record['cv_is_stored'] else None
@@ -125,6 +134,10 @@ def materialize(files, cfg, work):
                 keep &= derived['containment'] >= 0
             if cut.get('require_valid_direction',True):
                 keep &= derived['masks']['angular_resolution']
+            # Extraction assembled b_i = stored xsec * matching-flavour Honda
+            # flux. Keep that supplied normalization, with no file-count or
+            # display-area rescaling. Policy switches later act only on the
+            # one-dial response r_i(a), giving final event weight b_i*r_i(a).
             base = archive['base_weight']
             if not np.all(np.isfinite(base) & (base > 0)):
                 raise ValueError('Raw-cache baseline must be finite and positive')
@@ -282,7 +295,20 @@ def load_dial(sources,sparse_counts,slot,nvalues,work):
 
 
 def raw_missing(study,result,rows,raw):
-    """Invalidate every output touched by a nonfinite raw knot."""
+    """Prevent computational placeholders from masquerading as raw results.
+
+    make_policy supplies finite placeholders so the common accumulator can
+    run. In the raw diagnostic view, any NaN/+inf/-inf response makes every
+    histogram bin and angular-profile bin containing that event undefined for
+    that dial point. Both sumw and sumw2 are invalidated; the event is not
+    silently dropped and its placeholder yield is not reported. Unaffected
+    bins remain usable. Underflow/overflow slots are treated in the same way.
+
+    Finite negative responses are different: their signed histogram sums are
+    retained. The accumulator separately rejects probability quantiles in an
+    energy bin containing negative final weights, and make_flatness forwards
+    raw quality counts so paired probability tests are withheld as needed.
+    """
     for j in range(raw.shape[1]):
         bad = rows[~np.isfinite(raw[:,j])]
         if not len(bad):
@@ -430,10 +456,35 @@ def response_audit(category,combined,rows,raw):
 
 
 def make_policy(raw,policy,cfg):
-    """Only finite computational arrays enter the numerical accumulator.
+    """Apply the viewer's Weight policy to one dial's stored response matrix.
 
-    In raw mode nonfinite cells are placeholders and every affected reported
-    output is subsequently invalidated. They never become claimed raw data.
+    This switch concerns numerical treatment of the dimensionless response
+    r_i(a), not whether Honda flux or nominal xsec weights are applied. Both
+    views later multiply by the same finite, strictly positive baseline b_i.
+    It also does not interpolate between dial points or normalize to a CV.
+
+    fitter_policy ("MaCh3 numerical policy"), with the bundled YAML defaults:
+      r_i(a) nonfinite -> 1; clamp r_i(a) to [-9999, 9999]; max(r_i(a), 0).
+      final weight = b_i * handled_r_i(a).
+    The first two steps reproduce the checked CAF knot loader. The last is
+    equivalent here to the core's nonpositive-total-weight rejection, because
+    the other factor b_i is positive and only ONE dial is applied. This is not
+    a claim about the sign of a product of several simultaneously varied dials.
+    Bounds are response-weight bounds, not limits on the dial coordinate.
+    Pinned upstream implementations are listed in docs/source-audit.txt §6.
+
+    raw ("Raw responses (diagnostic)"):
+      Finite responses retain their supplied magnitude and sign, without a
+      clamp or positivity cut. Nonfinite cells receive temporary finite values
+      ONLY to run the common accumulator. raw_missing then invalidates every
+      reported bin/profile they touch, and raw quality counts withhold paired
+      tests. These placeholders are never claimed as measured raw responses.
+
+    The original raw matrix is not modified. Counts of original malformed and
+    signed responses are retained for both views, so a handled flat curve can
+    be distinguished from one made flat by nonfinite-to-unity replacement.
+    An overflow/nonfinite final product still raises in the accumulator; this
+    function does not implement a generic "any final NaN becomes zero" rule.
     """
     response = np.empty(raw.shape,dtype=np.float32)
     rules = cfg['weight_policy']
@@ -464,6 +515,7 @@ def save_diagnostics(path,result,moments,quality):
 
 
 def _reference(matrix,baseline,index):
+    """Use the selected stored response, or b_i-only sums when CV is absent."""
     return baseline[0] if index is None else matrix[index]
 
 
@@ -663,6 +715,10 @@ def main():
         quality = {name:get_response_quality_counts(main_study.histograms[name]['group'],rows,raw,
                     reference_index=ref,group_shape=(15,main_study.histograms[name]['width'])) for name in test_names}
         for policy in POLICIES:
+            # Apply handling once, before both histograms/quantiles and paired
+            # moments. Raw quality was counted from the untouched matrix above.
+            # Consequently a handled p-value describes the handled weights,
+            # including unity replacements, rather than the unmodified knots.
             response = make_policy(raw,policy,cfg)
             results = {}
             for key,group in studies.items():
@@ -670,6 +726,8 @@ def main():
                 for part,study in group.items():
                     result = study.aggregate(rows,response,negative_policy='preserve')
                     if policy=='raw':
+                        # Essential second half of raw handling: do not expose
+                        # make_policy's finite stand-ins for NaN/inf responses.
                         raw_missing(study,result,rows,raw)
                     results[key][part] = result
             moments = {name:get_difference_moments(main_study.histograms[name]['group'],rows,

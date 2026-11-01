@@ -130,6 +130,14 @@ class ResponseStudy:
         column is returned. Do not cure them by replacing with one or clipping.
         A source adapter may apply a documented production policy explicitly,
         recording raw diagnostics separately before calling this function.
+
+        This dense reference engine has the same weight algebra as the sparse
+        production path: H_k(a)=sum_{i in k} base_weight_i*response_i(a), with
+        sumw2=sum_i(final_weight_i**2). It does not add flux, oscillations, CV
+        factors or an exposure normalization; the caller already assembled the
+        baseline. Histogram outputs are bin sums, not unit-area densities.
+        The viewer's Weight policy is implemented in v2_aggregate.make_policy;
+        this generic engine does not silently choose a scientific policy.
         """
         response = np.asarray(responses)
         _require(response.ndim == 2 and response.shape[0] == self.n and response.shape[1] > 0,

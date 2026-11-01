@@ -4,6 +4,14 @@ The caller has already joined events, selected a direction/containment/binning,
 and applied the desired numerical policy. This module makes no physics choice
 and reads no files. It processes one response column at a time, so it never
 materializes an all-event by all-dial dense weight matrix.
+
+The pairing is by event row, not by comparing independently filled histograms.
+For a fixed dial point, a_i=w0_i*r_i and b_i=w0_i*r_ref_i use the SAME w0_i,
+truth angle and mask. The actual CV response r_ref may be nonunity. Three
+cross/difference moments below supplement the ordinary sumw/sumw2 histograms
+to reconstruct the shared-event covariance and the fitted shape normalization.
+Raw-quality unions are counted independently so a finite placeholder used for
+safe arithmetic can never make a missing raw response statistically valid.
 """
 from __future__ import annotations
 
@@ -52,6 +60,12 @@ def get_difference_moments(group, rows, base_weight, responses,
     base_weight: length-N finite nonnegative external nominal weights.
     responses: shape(len(rows),nvalues), AFTER the requested numerical policy.
     reference_index: actual stored CV/reference column, or None for response1.
+
+    ``point`` is a stored parameter coordinate/scenario, not an angular bin,
+    random dial throw or event count. Each output [category,point,:] is one
+    collection of bin moments for a separate test against the same reference.
+    ``group`` can encode a simple zenith grid or a flattened energy/zenith
+    grid; this function does not impose cuts or decide which bins are visible.
 
     Omitted sparse rows have response exactly1 at every point AND at the
     reference, so their paired difference is zero but their cross product is
@@ -103,6 +117,9 @@ def get_difference_moments(group, rows, base_weight, responses,
             raise ValueError("Difference moments require finite post-policy responses")
         return col
 
+    # Both nominal and varied curves receive the same baseline event weight.
+    # Only the selected response column changes; we neither multiply all dial
+    # CV columns together nor assume the reference lies at coordinate zero.
     ref_weight = wb if reference_index is None else wb * column(reference_index)
     for point in range(nv):
         varied_weight = ref_weight if point == reference_index else wb * column(point)
@@ -137,6 +154,12 @@ def get_response_quality_counts(group, rows, raw_responses,
     Omitted sparse rows are finite positive unity and contribute zero.
     Counts describe RAW response quality. For a test of handled weights use
     handled invalid/sign counts, while keeping these raw flags visible.
+
+    Do not sum these counts across dial points to infer unique bad events:
+    the same event can recur at every point, and a bad reference is part of
+    every variation/reference pair. The viewer reports the maximum per-point
+    count and labels that convention explicitly. A point with an affected raw
+    event loses the full-range test even when other bins have finite yields.
     """
     _, responses, valid, all_valid, codes, shape = _inputs(
         group, rows, raw_responses, reference_index, group_shape)

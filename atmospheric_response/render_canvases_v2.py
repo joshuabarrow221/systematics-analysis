@@ -65,7 +65,22 @@ def canvas_groups(observables):
 
 
 def flatness_summary(flatness):
-    """A short label only: the full per-point tests remain in JSON/CSV."""
+    """Summarize finite marginal p-values; the full tests remain in JSON/CSV.
+
+    One ``flatness.values`` entry corresponds to one stored dial coordinate or
+    discrete scenario. The displayed count is the number of those entries with
+    a finite marginal ``p_value``, not events, zenith bins, degrees of freedom,
+    or independent experiments. A separately supplied black reference is not
+    in this list. There is no explicit CV-ID exclusion here: the actual CV's
+    self-comparison normally has zero covariance rank and ``p_value=None``, so
+    the finite-p filter excludes it alongside other ineligible tests.
+
+    The displayed min/max is an uncorrected descriptive range across correlated
+    tests, not a confidence interval or a combined/global significance. It does
+    not summarize the separate energy-stratified p-values. Display mode never
+    changes the upstream tests. The browser uses identical rules and does not
+    restrict this summary when a user hides a curve or zooms the axis.
+    """
     values = flatness.get("values", [])
     tests = [x for x in values if isinstance(x, dict) and numeric(x.get("p_value"))]
     if not tests:
@@ -284,6 +299,9 @@ def load_inputs(manifest_path):
             require(not np.any(np.isinf(matrix)), f"{key}: infinite curve values")
             if obs["kind"] == "histogram" and not allow_missing_histograms:
                 require(np.all(np.isfinite(matrix)), f"{key}: histogram values must be finite")
+            # Reference identity is authoritative metadata, not an inferred
+            # zero coordinate or first matrix row. It may be an actual stored
+            # nonzero CV or an explicitly labelled separate unity reference.
             cv_id = dial["cv"]["value_id"]
             if cv_id is None:
                 cv = array(record.get("cv_key"), f"{key} separate CV")
@@ -337,7 +355,27 @@ def load_inputs(manifest_path):
 
 
 def normalized(values, edges, kind, mode):
-    """Histogram inputs are bin SUMS; shape output is density of unit area."""
+    """Convert saved weighted bin sums to the requested display, not weights.
+
+    For rates, return H_j unchanged. All nominal flux/cross-section factors,
+    the one-dial response and its selected numerical policy were already
+    applied by aggregation; this renderer applies no exposure or bin-width
+    division to the rate view. Its units are the supplied weighted sum per bin.
+
+    For histogram shapes, return f_j = H_j / (T * dx_j), T = sum_j H_j.
+    Then sum_j f_j * dx_j = 1. The reference and every variation get their own
+    T. The sum uses the full configured visible-bin range for this observable,
+    excluding audited under/overflow, not a zoom window. ``dx_j`` is a physical
+    edge difference even with log/symlog display: this is density per dx, not
+    per d(log x). Consequently f_var/f_ref = (H_var/T_var)/(H_ref/T_ref).
+
+    Any missing bin invalidates the full-range shape; do not silently normalize
+    only known bins. A finite positive signed total permits negative raw bins,
+    so the result may be a signed density rather than a probability density.
+    Nonpositive/nonfinite totals are unavailable. Profiles (here angular
+    quantile widths in degrees) are statistics, not event histograms, and must
+    remain unchanged in both display modes. Browser ``normalise`` mirrors this.
+    """
     result = np.asarray(values, dtype=float).copy()
     if mode != "shape" or kind == "profile":
         return result, None
@@ -350,6 +388,11 @@ def normalized(values, edges, kind, mode):
 
 
 def ratio(values, cv):
+    """Elementwise value/reference, preserving undefined reference-bin gaps.
+
+    Do not turn 0/0 into unity. Signed finite raw rate ratios are allowed;
+    separate statistical validity rules decide whether a shape test exists.
+    """
     valid = np.isfinite(values) & np.isfinite(cv) & (cv != 0)
     result = np.full(np.shape(cv), np.nan, dtype=float)
     np.divide(values, cv, out=result, where=valid)
@@ -418,6 +461,9 @@ def make_page(doc, selection, dial, observables, curves, mode, plt, Line2D, canv
             ax.set_title(obs["title"], loc="left", fontsize=12)
             ax.text(0.03, 0.55, "Unavailable\n" + textwrap.fill(record["reason"], 72), transform=ax.transAxes, va="center", fontsize=10)
             continue
+        # True zenith deliberately keeps BOTH rate and shape ratios regardless
+        # of the upper spectrum's display mode. All other histogram ratios use
+        # the chosen display; profile ratios compare unchanged binned widths.
         triple = oid == "true_coszenith"
         sub = cell.subgridspec(3 if triple else 2, 1, height_ratios=[2.5, 1.0, 1.0] if triple else [3.0, 1.0], hspace=0.035)
         ax = fig.add_subplot(sub[0])

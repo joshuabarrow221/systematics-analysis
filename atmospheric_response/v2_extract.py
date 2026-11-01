@@ -146,7 +146,17 @@ def header(f):
 
 
 def expand_responses(lengths, indices, raw, variation_counts):
-    """Validate ragged offsets; expand missing responses as exact unit weights."""
+    """Validate the CAF's ragged layout and expand absent responses as unity.
+
+    A zero stored length means this event has no supplied dependence on this
+    dial: its multiplier is exactly 1 at every stored coordinate. It does not
+    mean the event is missing or has zero weight. A nonzero length must match
+    the header's complete point count; malformed layouts raise an error.
+
+    This ingestion step preserves supplied negative and nonfinite values.
+    Numerical handling belongs to v2_aggregate.make_policy, so the same cache
+    can later produce both the MaCh3-handled and raw-diagnostic comparisons.
+    """
     lengths, indices = np.asarray(lengths), np.asarray(indices)
     variation_counts = np.asarray(variation_counts, dtype=np.int64)
     n, ndial = lengths.shape
@@ -244,6 +254,16 @@ def scan_file(path, out, expected, chunk_size=25000, read_cap_mib=256, input_has
                 category = truth_categories(pdg, cc)
                 one = (nt == 1) & (nr == 1)
                 mask = one & (category >= 0) & np.isfinite(E) & (E > 0)
+                # Shared nominal event weight b_i for BOTH numerical policies:
+                #   b_i = stored weights.xsec_i * matching-flavour Honda flux_i.
+                # The PDG includes the charge sign; the production's per-row
+                # flux field already corresponds to that neutrino/antineutrino.
+                # The abs(PDG) dispatch only chooses electron versus muon flux.
+                # Tau-generated events have no unoscillated source term here.
+                # Do not multiply another GENIE/genweight, xsec_cvwgt, Earth
+                # factor or oscillation probability. genweight above checks
+                # row alignment only. Absolute exposure/combined tuned CV are
+                # not established merely by retaining this supplied xsec field.
                 flux = np.where(np.abs(pdg) == 12, w["flux_nue"],
                                 np.where(np.abs(pdg) == 14, w["flux_numu"], 0.0))
                 base = w["xsec"] * flux
@@ -310,6 +330,10 @@ def scan_file(path, out, expected, chunk_size=25000, read_cap_mib=256, input_has
                 counts["nonfinite_response_cells"] += int((~np.isfinite(dense)).sum())
                 for j in range(ndial):
                     response = dense[:, offsets[j]:offsets[j+1]]
+                    # Sparsity is storage only: omitted events still contribute
+                    # b_i at every point. Keep an event if ANY point differs
+                    # from 1, including NaN/inf (NaN != 1 is True), so malformed
+                    # responses remain available to the diagnostic policy.
                     affected = np.any(response != 1.0, axis=1)
                     if affected.any():
                         sparse[j][0].append((np.flatnonzero(affected) + row_offset).astype(np.int32))

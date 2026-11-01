@@ -89,6 +89,106 @@ Use dataset paths from `manifest_list.json`; it is the authoritative list.
 The renderer can export every stored dial and selection by omitting those
 filters, but this makes a large book. It never needs to reread the CAF.
 
+## Reading the weight, display and statistical controls
+
+These controls act at different stages. **Weight policy** chooses an aggregated
+dataset with a particular treatment of the stored dial responses. **Display**
+changes how those already-weighted bin sums are drawn. Neither display option
+turns Honda weighting on or off, resamples a dial, or changes the selected events.
+The paired-test results were calculated during aggregation; changing Display,
+zoom or legend visibility does not recalculate them.
+
+For selected event i define the positive nominal weight
+`w0_i = weights.xsec_i * matching_flavour_Honda_flux_i`, and let `r_i(d)` be its
+stored response at one dial coordinate/scenario d. Electron/antielectron
+events use `flux_nue`; muon/antimuon events use `flux_numu`. No oscillation factor,
+additional generator-weight factor, `xsec_cvwgt`, or product of other dials is
+applied. A missing sparse response row represents unity. The black reference
+uses the actual stored CV coordinate from the metadata when present, including
+nonzero CVs; otherwise it is an explicitly labelled external unity reference.
+
+The **MaCh3 numerical policy** replaces a nonfinite response by 1, clamps the
+response to [-9999,9999], and gives zero contribution to a nonpositive resulting
+event weight. With the required positive w0, this is `w0*max(clamp(r),0)` after
+nonfinite replacement. It reproduces the checked knot handling and final-weight
+cut for this one-dial study; it is not a complete MaCh3 fit or spline evaluation.
+The pinned upstream files and their precise scope are in
+[source-audit.txt](source-audit.txt), section 6.
+
+**Raw responses (diagnostic)** still uses w0. Finite responses retain their
+original signs and magnitudes, without replacement or clamping. Finite negative
+weights can therefore produce negative histogram bins. Nonfinite contributions
+make their affected reported bins undefined: an internal finite placeholder is
+only a computational device, not a repaired physical weight. Negative event
+weights invalidate probability quantiles in affected energy bins, and negative
+or nonfinite event weights in a comparison invalidate the corresponding paired
+probability-shape test. Malformed response array lengths/offsets are errors in
+both policies, not values to be silently repaired.
+
+For a histogram bin j, **Weighted rates** displays
+`H_j(d) = sum_(selected i in bin j) w0_i * policy(r_i(d))`.
+It is a weighted sum per physical bin, with no bin-width division or unit-area
+normalization. Absolute exposure and the combined tuned CV remain unverified,
+so this label does not establish events per year or a fully normalized fitter
+prediction. There is no additional division by the number of input files.
+
+**Unit-area shapes** displays the density
+`f_j(d) = H_j(d) / (sum_k H_k(d) * (edge[j+1]-edge[j]))`.
+The sum uses every configured visible bin of that observable and each curve is
+normalized independently, including the reference. Thus
+`sum_j f_j(d)*bin_width_j = 1`. Underflow and overflow are excluded; zooming does
+not change this range. Widths use the physical coordinate, even on log/symlog
+axes: an energy density is per GeV, not per log(GeV). A finite positive total is
+required, and any missing bin makes the whole normalized curve unavailable.
+Finite signed bins may remain with a warning; that is a signed density, not a
+probability distribution. The angular-width profile is already in degrees and
+is never area-normalized.
+
+For ordinary histogram panels the lower ratio follows Display: `H/H_ref` for
+rates or `f/f_ref` for shapes. The true-zenith panel deliberately always shows
+both `H/H_ref` and `(H/sum(H))/(H_ref/sum(H_ref))`; changing Display only changes
+its upper spectrum. The physical bin widths cancel in the shape ratio because
+the varied and reference curves use the same edges.
+
+**Paired shape test: p L–U; N point(s), descriptive** summarizes the marginal
+true-zenith tests for the current dataset, truth selection and dial. N is the
+number of stored dial coordinates/scenarios with a finite marginal p-value.
+It is not an event count, number of zenith bins, bootstrap count or degrees of
+freedom. The UI does not explicitly exclude a CV ID: it filters finite p-values;
+an exact CV self-comparison has zero contrast variance and no p-value, and so
+normally does not count. Other exact proportional, low-statistics or invalid
+comparisons also have no p-value. Hidden legend curves remain in this summary.
+
+L and U are simply the smallest and largest eligible per-point p-values. This
+is not a combined p-value, confidence interval or multiple-testing correction.
+“Descriptive” qualifies that scan summary and its interpretation. The tests use
+an asymptotic finite-MC covariance model; dial settings are deterministic and
+correlated, and many selections/binnings/dials are examined. A small p indicates
+incompatibility with proportional marginal shapes under that model, not an
+automatic physics bug or direct nuclear dependence on incoming zenith. A large
+p does not prove equivalence. The full derivation, status rules and separate
+coarse energy-conditioned diagnostic are in
+[paired-shape-test.txt](paired-shape-test.txt). Per-point statistics, status and
+shape-ratio standard errors are in the CSV; the current plots do not draw those
+standard errors as error bars. The caption uses marginal tests only, not the
+energy-conditioned p-values.
+
+For example, if every event's varied weight is exactly twice its reference
+weight, the rate ratio is 2 and the shape ratio is 1 in every supported bin.
+The paired contrast cancels event by event. It receives a zero-rank proportional
+status rather than an invented p=1, and does not increment N.
+
+Implementation map:
+
+| Definition | Code |
+|---|---|
+| Nominal xsec/Honda weight and sparse raw storage | [`v2_extract.py`](../atmospheric_response/v2_extract.py) |
+| Response policy and per-point test assembly | `make_policy`, `make_flatness` in [`v2_aggregate.py`](../atmospheric_response/v2_aggregate.py) |
+| Weighted bin sums and quantile validity | [`sparse_response_aggregation.py`](../atmospheric_response/sparse_response_aggregation.py) |
+| Browser normalization, ratios and caption | `normalise`, `curvesFor`, `flatnessSummary` in [`build_interactive_v2.py`](../atmospheric_response/build_interactive_v2.py) |
+| Static normalization and ratios | [`render_canvases_v2.py`](../atmospheric_response/render_canvases_v2.py) |
+| Paired moments and covariance test | [`v2_moments.py`](../atmospheric_response/v2_moments.py), `paired_shape_flatness` in [`v2_statistics.py`](../atmospheric_response/v2_statistics.py) |
+
 ## Compare the previous and hybrid angle reconstruction
 
 `analysis_v2.yaml` selects the Pierre hybrid. The bundled

@@ -1,5 +1,5 @@
 Paired Monte Carlo zenith-shape diagnostic
-Prepared 2026-10-30; source/module/test documentation
+Prepared 2026-10-30; explanation and code comments expanded 2026-11-01
 
 What the test answers
 [CERTAIN] It tests whether the selected, weighted, marginal zenith histograms
@@ -8,6 +8,43 @@ rotational symmetry, and a p-value is not the probability that a curve is flat.
 NuSystematics endpoints are deterministic functions of each event. The random
 quantity in this diagnostic is the finite Monte Carlo sample, not a new draw
 from the dial each time a curve is drawn.
+
+"Flat" refers to the normalized VARIATION/REFERENCE RATIO being consistent
+with one. Neither the nominal zenith spectrum nor the varied spectrum is
+required to be uniform in zenith. This is an analysis diagnostic implemented
+in this repository, not a MaCh3 likelihood or a procedure supplied by
+NuSystematics for randomly sampling its dial settings.
+
+Reading the browser's "Paired shape test: p ...; N point(s), descriptive"
+- A point is one stored parameter coordinate or coupled scenario for the
+  selected dial. It is NOT a zenith bin, MC event, bootstrap replica or random
+  throw. Different coordinates need not all be conventional +/-sigma values.
+- Each point has a separate test against the actual stored CV, or the clearly
+  labelled unity-response reference if no CV point was stored.
+- N counts stored-point records with a finite MARGINAL p_value. It can be
+  smaller than the dial's total number of stored points. An exact CV
+  self-comparison normally has zero contrast rank and p_value=null, so it is
+  not counted. A raw-invalid, low-statistics or otherwise unavailable test is
+  also not counted. A numerically underflowed p=0 is counted and rendered as
+  "below numerical range". No special CV-ID exclusion is applied by the UI.
+- The displayed p interval is simply the minimum and maximum of those
+  per-point values. It is not a combined p-value, confidence interval,
+  acceptance criterion, or multiple-comparison correction. The points reuse
+  the same MC events and reference and are correlated with one another.
+- "Descriptive" qualifies that summary and its diagnostic interpretation;
+  it does not name a different statistic or mean the remaining points passed.
+  These are asymptotic, unadjusted tests with the limits detailed below.
+- Hiding a curve with its legend checkbox does not remove it from this count.
+  Changing Display between rates and unit-area shapes does not recompute the
+  test. Changing the dataset/selection/dial chooses its separately saved tests.
+- The expandable "True-zenith shape tests" table lists EACH stored coordinate,
+  its chi-square, degrees of freedom, marginal p and status. Energy-stratified
+  p-values appear in separate columns and do not enter the compact summary.
+
+For example, if seven coordinates [-3,-2,-1,0,1,2,3] include an actual CV at 0
+and all six non-CV tests have valid finite p-values, the summary says six points.
+If two of those tests are unavailable it says four, not six or seven. The
+separate toolbar count of stored points still describes all seven coordinates.
 
 For an illustrative selected rate,
   N_theta(z) = integral dE dy Phi(E,z) sigma(E,y;theta) epsilon(E,y,z).
@@ -69,10 +106,36 @@ instead constrain t; inconsistent support is explicitly unavailable. A
 comparison whose entire contrast variance vanishes has rank zero and no
 goodness-of-fit p-value. It is labelled proportional within numerical precision.
 
-The displayed ratio errors include both the shared-event covariance and the
+The production code does not generate bootstrap replicas. It evaluates these
+moment/covariance formulas analytically. The covariance estimates finite-MC
+sampling precision conditional on the chosen response and event weights; it
+does not include real-data Poisson errors, detector-systematic uncertainty or
+parameter priors. The mathematical null concerns the underlying weighted bin
+expectations; A, B, k and V are their sample estimates used in the Wald test.
+
+For numerical stability the implementation internally replaces a_i with a_i/k,
+so d=A/k-B and s_j=sum(a_i/k-b_i)^2. The same statistic results because both
+the displacement and covariance rescale together. It evaluates the supported
+quadratic form in O(number of bins), without eigen-decomposing a dense matrix:
+  all s_j>0: rank = number of active reference bins - 1;
+  some s_j=0: zero-variance bins fix the nuisance t, and rank = count(s_j>0),
+               provided the displacement satisfies those support constraints;
+  all s_j=0: zero rank; no nondegenerate goodness-of-fit p-value.
+The effective rank is not the number of dial coordinates or all configured
+bins. Bins empty in both spectra contribute no information.
+
+With T=D^T V^+ D and rank nu, p=Pr(ChiSquare_nu >= T) under the null and the
+large-sample approximation. A small p indicates a shape discrepancy large
+relative to the paired MC precision. It is not Pr(the null is true), and a
+large p does not prove equality or absence of an effect of practical interest.
+
+The returned ratio standard errors include both the shared-event covariance and the
 uncertainty in the fitted normalization. They use the delta method evaluated
 at the observed ratio, including denominator derivatives; they are not merely
-sqrt(A2)/B. See the commented (a-b,b) influence calculation in v2_statistics.py.
+sqrt(A2)/B. They are available in the CSV; the current browser does not draw
+uncertainty bands. These binwise errors are correlated through normalization:
+adding squared residuals divided by their separate variances would not be the
+paired test. See the commented (a-b,b) influence calculation in v2_statistics.py.
 
 Validity and interpretation
 - All test weights must be finite and nonnegative. Pass per-policy event
@@ -87,7 +150,7 @@ Validity and interpretation
   evidence that the missing physical responses were flat.
 - A variation populating reference-zero support gets no regular chi-square
   p-value. Empty bins in both curves carry no information.
-- The default minimum effective count is20 in every active bin, checked in
+- The default minimum effective count is 20 in every active bin, checked in
   both spectra using (sumw)^2/sumw2. When a bin fails, chi-square is retained as
   a descriptive number but the p-value is withheld. The threshold is a
   screening convention, not a theorem that every heavy-tailed residual is
@@ -116,6 +179,13 @@ from this helper; use the per-stratum covariance to derive one if needed.
 For routine operation use a small set of well-populated energy/angle strata;
 fine display bins are not automatically suitable test strata.
 
+The bundled configuration uses 10 true-energy strata with edges [GeV]
+  [0.1,0.2,0.4,0.8,1.6,3.2,6.4,12.8,25.6,51.2,100]
+and 10 angular bins with cosine edges
+  [-1,-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8,1].
+These are configuration values, not hardcoded statistical requirements. The
+per-point marginal test instead uses that selected spectrum's visible bins.
+
 Interface for aggregation/viewer code
   paired_shape_flatness(A,B,A2,B2,C,
       sumw2_difference=Delta2, sumw_ref_difference=BDelta,
@@ -124,10 +194,30 @@ Interface for aggregation/viewer code
 JSON-safe output fields:
   status, statistic, ndof, p_value, notes,
   ratio_shape, ratio_shape_se, ratio_rate, ratio_rate_se, rate_scale,
-  effective_bins, low_stat_bins, min_effective_count.
+  effective_bins, low_stat_bins, min_effective_count, effective_count_threshold.
+In the OUTPUT, min_effective_count is the observed minimum across both spectra;
+effective_count_threshold records the configured INPUT threshold (default 20).
 Optional return_covariance=True adds difference and difference_covariance for
 small diagnostic calculations. Main production calculation is O(n_bins).
 No ROOT reading or event-selection decisions occur in the module.
+
+Code map
+- atmospheric_response/v2_moments.py::get_difference_moments pairs event
+  weights and accumulates C, Delta2 and BDelta, preserving omitted unity rows.
+- atmospheric_response/v2_moments.py::get_response_quality_counts counts raw
+  invalid/negative event unions for each variation/reference pair.
+- atmospheric_response/v2_aggregate.py::make_flatness selects the actual CV or
+  labelled unity reference, supplies the visible-bin moments, calls both
+  statistical routines, and attaches raw-quality flags to the saved results.
+- atmospheric_response/v2_statistics.py::paired_shape_flatness is the marginal
+  test; energy_stratified_flatness is the separate conditional diagnostic;
+  chi2_survival computes the upper-tail probability.
+- atmospheric_response/build_interactive_v2.py::flatnessSummary (embedded
+  JavaScript) produces the min/max/N summary; appendFlatnessTable creates the
+  expandable per-point table. These functions read saved results rather than
+  recalculate event weights or statistics in the browser.
+- atmospheric_response/render_canvases_v2.py::flatness_summary supplies the
+  corresponding static-renderer summary.
 
 Source basis (primary sources; checked 2026-10-30)
 The paired normalization algebra above is explicitly derived here, not claimed
@@ -153,7 +243,7 @@ The incomplete-gamma recurrence supplies the integer-dof fallback tail.
 SciPy's regularized upper gamma implementation is preferred when installed:
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.gammaincc.html
 
-Validation completed
+Numerical validation completed on 2026-10-30
 Run from the repository: OPENBLAS_NUM_THREADS=1 python -m pytest tests/test_v2_statistics.py tests/test_v2_moments.py tests/test_v2_config.py -q
 Twenty-seven tests pass with system NumPy 1.26.4 and no SciPy requirement:
 twelve statistics, five sparse-moment and ten configuration tests.
@@ -183,3 +273,8 @@ twelve statistics, five sparse-moment and ten configuration tests.
   profile overrides and keep unspecified ALL/NC Miles samples unavailable.
   Nested profiles merge sample fields recursively; malformed inheritance,
   numerical policies, conditional grids and unsupported physics modes fail early.
+
+The 2026-11-01 explanation update changes comments/docstrings only. Comparing
+the executable AST after stripping docstrings confirms that v2_statistics.py
+and v2_moments.py retain identical calculations; syntax and diff checks pass.
+The previously generated scientific outputs have not been recalculated.

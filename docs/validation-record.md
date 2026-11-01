@@ -83,7 +83,8 @@ sample. Its configuration SHA256 is
 `a975157a7529520c1bc52c9495b9ede96147d686d31490fa69db64a1e3ab14ea`.
 The saved configurations differ only in `physics.direction_method`; all other
 cuts, energy estimators, weights, bins and R=6371 km / h=15 km / depth=0 geometry
-are identical. All seven recorded calculation-module hashes match the checkout.
+are identical. All seven recorded calculation-module hashes matched the checkout
+used for that validation.
 
 | Check | Result and evidence |
 |---|---|
@@ -115,3 +116,22 @@ remain in the hit contribution on this common cohort. Their upstream mechanism
 is unconfirmed; the source audit distinguishes that fact from the verified
 direction assignments. Neither this comparison nor the browser checks prove
 physical correctness of a reconstruction method.
+
+## Comment and interface clarification — 1 November 2026
+
+Expanded the code comments and guide for nominal weights, numerical policies,
+display normalization, paired covariance and the per-dial-point p-value summary.
+The executable Python syntax trees match commit `80105db` after ignoring
+docstrings; embedded JavaScript tokens and the surrounding HTML are unchanged.
+Python/JavaScript syntax checks passed. The twelve statistical tests and five
+paired-moment tests passed with the available system Python/NumPy, including
+the null-calibration and paired-Poisson-bootstrap checks. This is a targeted
+documentation validation, not a rerun of the earlier full environment or CAF
+production. The earlier temporary virtual environment was no longer present.
+Record: `v2_research/comment_clarification_validation_2026-11-01.json`.
+
+No ROOT files, cached events, aggregate values or delivered app assets were
+changed. Comments/docstrings do change byte-level source hashes, so the old
+cache and aggregate metadata retain their original provenance. Do not rewrite
+those hashes to pretend that the historical run used the annotated source, or
+restart extraction into that completed cache merely to accommodate comments.

@@ -21,6 +21,15 @@ HTML remains small and works with file:// without a local web server. Keep the
 HTML next to its .assets directory. --embed is available for small collections.
 The default view uses the verified fitter numerical policy. Raw responses are
 available only by explicitly selecting their diagnostic policy.
+
+The controls answer different questions. ``Weight policy`` selects a separately
+aggregated dataset whose event responses were handled upstream; this builder
+never applies an event weight. ``Display`` changes how those saved bin sums
+are presented: unchanged sums (rate), or each histogram divided by its own
+visible-bin sum and physical bin width (shape). It neither reruns the paired
+shape tests nor changes event selection. See ``normalise``, ``curvesFor`` and
+``flatnessSummary`` in the embedded JavaScript below for the exact UI rules;
+the corresponding static-renderer rules are in ``render_canvases_v2.py``.
 """
 from __future__ import annotations
 
@@ -225,12 +234,28 @@ function fillSelect(target,items,keep){target.replaceChildren(...items.map(x=>op
 // Preserve complete manifest wording while keeping long rotated titles inside
 // the upper plot's height. Plotly accepts explicit line breaks in axis titles.
 function verticalTitle(text){const lines=[''];for(const word of String(text).split(/\s+/)){const i=lines.length-1;if(lines[i]&&lines[i].length+word.length+1>26)lines.push(word);else lines[i]+=(lines[i]?' ':'')+word;}return lines.map(esc).join('<br>');}
+// Input H[j] is the already weighted bin SUM from the chosen policy dataset.
+// "Weighted rates" returns H unchanged: no extra flux, response, exposure,
+// division by bin width, or normalization is applied in the browser.
+// For "Unit-area shapes", return f[j] = H[j] / (sum_k H[k] * Delta_x[j]),
+// so sum_j f[j]*Delta_x[j] = 1. Delta_x is the PHYSICAL edge difference even
+// on a logarithmic/symlog x axis; this is density per dx, not per d(log x).
+// The sum covers this observable's full stored/displayed bin range, excluding
+// audited under/overflow. Zooming, hiding curves or opening another canvas
+// cannot change that sum. Each dial point and the reference normalize separately.
+// Missing bins make the whole integral unknown: never drop them and silently
+// renormalize the remaining support. Raw negative bins are retained when their
+// signed total is positive, giving a signed unit-area density, not a PDF.
+// The angular-resolution profile is a quantile statistic in degrees, not a
+// histogram of events; both display modes must leave its values unchanged.
 function normalise(values,obs,mode){
  const out=values.slice();if(mode!=='shape'||obs.kind==='profile')return {values:out,warning:null};
  if(out.some(x=>!finite(x)))return {values:out.map(()=>null),warning:'Shape unavailable: missing bins make its integral unknown.'};
  const sum=out.reduce((a,b)=>a+b,0);if(!finite(sum)||sum<=0)return {values:out.map(()=>null),warning:'Shape unavailable: its signed total is nonpositive or nonfinite.'};
  return {values:out.map((x,i)=>x/sum/(obs.edges[i+1]-obs.edges[i])),warning:null};
 }
+// Undefined/zero-reference bins stay gaps; do not replace an undefined 0/0 by 1.
+// Finite negative raw reference values remain usable for a signed rate ratio.
 function ratios(values,reference){return values.map((x,i)=>finite(x)&&finite(reference[i])&&reference[i]!==0?x/reference[i]:null);}
 // Match Matplotlib's base-10 SymmetricalLogTransform with linscale=1.
 // Only display coordinates change. Histogram widths, hover bounds and CSV
@@ -241,6 +266,16 @@ function expanded(values,obs){
  if(obs.kind==='profile')return {x:obs.centers,y:values,custom:obs.centers.map((_,i)=>[obs.edges[i],obs.edges[i+1]])};
  const x=[],y=[],custom=[];for(let i=0;i<values.length;i++){x.push(obs.edges[i],obs.edges[i+1]);y.push(values[i],values[i]);custom.push([obs.edges[i],obs.edges[i+1]],[obs.edges[i],obs.edges[i+1]]);}return {x,y,custom};
 }
+// The manifest, not a presumed dial coordinate of zero or an array offset,
+// supplies the reference. It may be an actual in-grid CV (possibly nonzero),
+// or an explicitly labelled separate reference if no actual CV was supplied.
+// Draw an in-grid CV only once, as the black reference. "raw" below means the
+// unnormalized saved bin sums; it does NOT mean the selected policy is raw.
+// Keep all three ratios distinct:
+//   rate_ratio = A[j]/B[j];
+//   shape_ratio = (A[j]/sum A)/(B[j]/sum B), since equal bin widths cancel;
+//   ratio = the ratio of values in the current Display mode.
+// This is equivalent to rescaling A to the reference total before dividing.
 function curvesFor(record,dial,obs,mode){
  const reference=normalise(record.cv,obs,mode),shapeReference=normalise(record.cv,obs,'shape'),out=[];
  const referenceIndex=dial.values.findIndex(v=>v.id===dial.cv.value_id);
@@ -295,6 +330,19 @@ function rawQualityNote(flatness,policy){
  return 'Selected true-zenith range: max per stored point is '+nonfinite.toLocaleString()+' nonfinite-response and '+negative.toLocaleString()+' negative raw-weight events in the variation/reference pair; these are not sums over points. '+
   (policy==='fitter_policy'?'The numerical policy replaces nonfinite responses by 1 and sets nonpositive final weights to 0. Handled flatness can reflect these replacements, not physical insensitivity.':'Raw nonfinite contributions leave undefined bins; negative event weights make probability quantiles undefined.');
 }
+// This is a synopsis of precomputed MARGINAL tests, not a new statistical test.
+// "N point(s)" counts stored dial coordinates/scenarios with a finite p_value
+// in flat.values. It does not count events, zenith bins, degrees of freedom,
+// independent trials, or the separately supplied black reference. There is
+// no explicit CV-ID filter: the actual CV self-comparison normally has rank 0
+// and p_value=null upstream, so it is naturally absent from this finite-p count.
+// The shown interval is min(p)..max(p) across those eligible stored points;
+// it is neither a confidence interval nor a p-value combined across the dial.
+// "Descriptive" flags this uncorrected synopsis of correlated comparisons.
+// Each individual p is the upstream asymptotic tail probability, subject to
+// its validity screens. Invalid/low-statistic/zero-rank tests have no finite p.
+// Hidden legend curves, Display mode and zoom do NOT filter this summary.
+// Energy-stratified results are separate and appear in the details table/CSV.
 function flatnessSummary(flat){
  if(!flat?.values?.length)return '';
  const valid=flat.values.filter(t=>finite(t?.p_value));
@@ -302,6 +350,9 @@ function flatnessSummary(flat){
  if(flat.values.every(t=>t?.status==='proportional_within_precision'))return 'All points proportional within numerical precision; no nondegenerate p-value.';
  return 'Shape test unavailable or low statistics; see per-point notes.';
 }
+// Preserve every stored point in the details table, including ineligible tests
+// omitted from the finite-p synopsis. Missing p-values remain em dashes with
+// explicit statuses; an exact reference match is not assigned a fabricated p=1.
 function appendFlatnessTable(box,dial,flat){
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='True-zenith shape tests (shared-event covariance)';details.append(summary);
  const text=document.createElement('p');text.textContent='Null: proportional marginal zenith spectra. Dial settings use the same MC events, not independent random draws. Rejection can reflect energy, flux and selection correlations; it does not establish an incoming-angle dependence of the nucleus.';details.append(text);
@@ -350,6 +401,11 @@ function buildNotes(dataset,selection,dial,page){
  details.append(ds,body);box.append(details);
  const flat=page.true_coszenith?.flatness;if(flat)appendFlatnessTable(box,dial,flat);
 }
+// Hiding a curve changes only drawn traces. It does not renormalize another
+// curve, refit a shape test, or change the summary's eligible-point count.
+// True cosZ always shows BOTH rate/reference and shape/reference ratios,
+// regardless of the spectrum Display mode. Other histogram panels show the
+// ratio appropriate to Display; the profile ratio is always width/reference.
 function tracesFor(record,dial,obs,mode){
  const traces=[],curves=curvesFor(record,dial,obs,mode),triple=obs.id==='true_coszenith';
  for(const c of curves){if(state.hidden.has(c.id))continue;
@@ -437,6 +493,8 @@ async function showPage(){
   const acceptance=directionAcceptanceNote(dataset);el('direction-acceptance').textContent=acceptance;el('direction-acceptance').hidden=!acceptance;
   buildNotes(dataset,selection,dial,page);await renderCharts();if(ticket!==state.ticket)return;
   const index=Array.from(el('dial').options).findIndex(x=>x.value===did);
+  // This header count includes EVERY stored dial setting. It can exceed the
+  // true-zenith synopsis count, which includes only settings with a finite p.
   el('status').textContent=dimensionKeys.map(k=>dimensionLabel(dataset,k,String(dataset.dimensions[k]))).join(' · ')+' · '+selection.label+' · '+(index+1)+'/'+el('dial').options.length+' parameters · '+dial.values.length+' stored point(s)';
   el('previous').disabled=index<=0;el('next').disabled=index>=el('dial').options.length-1;
   history.replaceState(null,'','#'+new URLSearchParams({...dataset.dimensions,selection:sid,dial:did,mode:state.mode,canvas}).toString());
@@ -446,6 +504,11 @@ async function showPage(){
 }
 function updateDialList(keep){const dataset=selectedDataset(),q=el('search').value.toLowerCase();if(!dataset)return;const dials=dataset.dials.filter(d=>(d.id+' '+d.label).toLowerCase().includes(q));fillSelect(el('dial'),dials,keep);showPage();}
 
+// Export all stored curves for this canvas, including those hidden in the
+// legend. "value" follows Display (bin sum, unit-area density, or unchanged
+// profile statistic); bin coordinates stay physical. Both rate_ratio and
+// shape_ratio are explicit columns so switching Display cannot obscure which
+// comparison was used. Test columns copy upstream results without refitting.
 function downloadCSV(){if(!state.page)return;const {dataset,selection,dial,page,mode}=state;
  const rows=[['dataset','binning','containment','direction','policy','selection','dial','mode','canvas','observable','point_label','point_value','is_reference','bin_low','bin_high','bin_center','value','display_ratio','rate_ratio','shape_ratio','shape_ratio_se','shape_chi2','shape_ndof','shape_p_value','shape_test_status','energy_stratified_chi2','energy_stratified_ndof','energy_stratified_p_value','energy_stratified_status','raw_nonfinite_pair_events','raw_negative_pair_events']];
  for(const declared of activeObservables(dataset)){const r=page[declared.id];if(!r.available)continue;const obs=recordObservable(declared,r);
